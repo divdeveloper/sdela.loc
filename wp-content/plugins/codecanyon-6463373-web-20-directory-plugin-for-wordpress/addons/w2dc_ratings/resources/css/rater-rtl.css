@@ -1,14 +1,14 @@
-.w2dc-rating {
-	margin-right: 10px;
-	margin-left: 0;
-}
-.stat {padding-left: 5px; padding-right: 0;}
-.ui-rater-starsOn {background-position: 100% -40px;}
-.ui-rater-starsHover {background-position: 100% -20px!important;}
-
-.admin_avg_value {
-	float: right;
-}
-.statValMetabox {
-	float: right;
+.w2dc-rating {
+	margin-right: 10px;
+	margin-left: 0;
+}
+.stat {padding-left: 5px; padding-right: 0;}
+.ui-rater-starsOn {background-position: 100% -40px;}
+.ui-rater-starsHover {background-position: 100% -20px!important;}
+
+.admin_avg_value {
+	float: right;
+}
+.statValMetabox {
+	float: right;
 }
