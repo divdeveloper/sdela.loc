@@ -1,0 +1,2 @@
+[01-Nov-2017 23:04:17 America/Chicago] PHP Fatal error:  Call to undefined function add_action() in /home/sdelacom/public_html/wp-content/plugins/hello.php on line 60
+[01-Nov-2017 23:05:49 America/Chicago] PHP Fatal error:  Call to undefined function add_action() in /home/sdelacom/public_html/wp-content/plugins/hello.php on line 60
