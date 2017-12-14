@@ -77,19 +77,19 @@ class Wp_Ajax_Login_Public {
 
 		// Make sure passwords aren't empty
 		if ( empty( $_POST['pt_user_pass1'] ) || empty( $_POST['pt_user_pass2'] ) ) {
-			$errors->add( 'empty_password', __( '<strong>ОШИБКА</strong>: Введите пароль дважды.', 'theme-my-login' ) );
+			$errors->add( 'empty_password', _PLG_MAXX_AJAX_LOGIN_ERROR_ENTER_PASSWORD_TWICE );
 
 		// Make sure there's no "\" in the password
 		} elseif ( false !== strpos( stripslashes( $_POST['pt_user_pass1'] ), "\\" ) ) {
-			$errors->add( 'password_backslash', __( '<strong>ОШИБКА</strong>: Пароль не может содержать символы "\\".', 'theme-my-login' ) );
+			$errors->add( 'password_backslash', _PLG_MAXX_AJAX_LOGIN_ERROR_PASSWORD_WRONG_SYMBOLS );
 
 		// Make sure passwords match
 		} elseif ( $_POST['pt_user_pass1'] != $_POST['pt_user_pass2'] ) {
-			$errors->add( 'password_mismatch', __( '<strong>ОШИБКА</strong>: Пароли не совпадают.', 'theme-my-login' ) );
+			$errors->add( 'password_mismatch', _PLG_MAXX_AJAX_LOGIN_ERROR_PASSWORD_DONT_MATCH );
 
 		// Make sure password is long enough
-		} elseif ( strlen( $_POST['pt_user_pass1'] ) < 6 ) {
-			$errors->add( 'password_length', __( '<strong>ОШИБКА</strong>: Ваш пароль должен содержать как минимум 6 символов.', 'theme-my-login' ) );
+		} elseif ( strlen( $_POST['pt_user_pass1'] ) < 8 ) {
+			$errors->add( 'password_length', _PLG_MAXX_AJAX_LOGIN_ERROR_PASSWORD_AT_LEAST_8_SYMBOLS );
 
 		// All is good, assign password to a friendlier key
 		} else {
@@ -176,12 +176,12 @@ class Wp_Ajax_Login_Public {
 
 		// Check CSRF token
 		if( !check_ajax_referer( 'ajax-login-nonce', 'login-security', false) ){
-			echo json_encode(array('error' => true, 'message'=> '<div class="alert alert-danger">'.__('Session token has expired, please reload the page and try again', 'wp-ajax-login').'</div>'));
+			echo json_encode(array('error' => true, 'message'=> '<div class="alert alert-danger">'._PLG_MAXX_AJAX_LOGIN_SESSION_TOKEN_EXPIRED.'</div>'));
 		}
 	 	
 	 	// Check if input variables are empty
 	 	elseif( empty($user_login) || empty($user_pass) ){
-			echo json_encode(array('error' => true, 'message'=> '<div class="alert alert-danger">Заполните все поля</div>'));
+			echo json_encode(array('error' => true, 'message'=> '<div class="alert alert-danger">'._PLG_MAXX_AJAX_LOGIN_PLEASE_FILL_ALL_FORM_FIELDS.'</div>'));
 	 	} else { // Now we can insert this account
 
 	 		$user = wp_signon( array('user_login' => $user_login, 'user_password' => $user_pass), false );
@@ -189,7 +189,7 @@ class Wp_Ajax_Login_Public {
 		    if( is_wp_error($user) ){
 				echo json_encode(array('error' => true, 'message'=> '<div class="alert alert-danger">'.$user->get_error_message().'</div>'));
 			} else{
-				echo json_encode(array('error' => false, 'message'=> '<div class="alert alert-success">'.__('Успех, перезагрузка страницы...', 'wp-ajax-login').'</div>'));
+				echo json_encode(array('error' => false, 'message'=> '<div class="alert alert-success">'._PLG_MAXX_AJAX_LOGIN_LOGIN_SUCCESSFUL_RELOADING_PAGE.'</div>'));
 			}
 	 	}
 
@@ -223,18 +223,18 @@ class Wp_Ajax_Login_Public {
 		
 		// Check CSRF token
 		if( !check_ajax_referer( 'ajax-login-nonce', 'register-security', false) ){
-			echo json_encode(array('error' => true, 'message'=> '<div class="alert alert-danger">'.__('Session token has expired, please reload the page and try again', 'wp-ajax-login').'</div>'));
+			echo json_encode(array('error' => true, 'message'=> '<div class="alert alert-danger">'._PLG_MAXX_AJAX_LOGIN_SESSION_TOKEN_EXPIRED.'</div>'));
 			die();
 		}
 	 	
 	 	// Check if input variables are empty
 	 	elseif( empty($user_login) || empty($user_email) ){
-			echo json_encode(array('error' => true, 'message'=> '<div class="alert alert-danger">Заполните все поля</div>'));
+			echo json_encode(array('error' => true, 'message'=> '<div class="alert alert-danger">'._PLG_MAXX_AJAX_LOGIN_PLEASE_FILL_ALL_FORM_FIELDS.'</div>'));
 			die();
 	 	}
                 
                 if(!$this->verify_captcha()){
-			echo json_encode(array('error' => true, 'message'=> '<div class="alert alert-danger">Ошибка капчи</div>'));
+			echo json_encode(array('error' => true, 'message'=> '<div class="alert alert-danger">'._PLG_MAXX_AJAX_LOGIN_ERROR_CAPTCHA.'</div>'));
 			die();                    
                 }
 		
@@ -264,9 +264,9 @@ class Wp_Ajax_Login_Public {
         $activation_link = add_query_arg( array( 'key' => $code, 'user' => $errors ), get_permalink(576));
         
         $blogname = wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
-        $title    = sprintf( '[%s] Активируйте свою учётную запись', $blogname );
+        $title    = sprintf( _PLG_MAXX_AJAX_LOGIN_ACTIVATE_ACCOUNT, $blogname );
         
-        $message  = sprintf( 'Спасибо за регистрацию на %s! Для завершения активации учётной записи перейдите по ссылке: ', $blogname ) . "\r\n\r\n";
+        $message  = sprintf( _PLG_MAXX_AJAX_LOGIN_ACTIVATE_ACCOUNT_LINK, $blogname ) . "\r\n\r\n";
         $message .=  $activation_link . "\r\n";        
         
         add_user_meta( $errors, 'has_to_be_activated', $code, true );
@@ -284,7 +284,7 @@ class Wp_Ajax_Login_Public {
     }                    
                     
                     
-			echo json_encode(array('error' => false, 'message' => '<div class="alert alert-success">'.__( 'Registration complete. Please check your e-mail.', 'wp-ajax-login').'</p>'));
+			echo json_encode(array('error' => false, 'message' => '<div class="alert alert-success">'._PLG_MAXX_AJAX_LOGIN_REGISTRATION_COMPLETE_PLEASE_CHECK_YOUR_E_MAIL.'</p>'));
 		}
 	 
 
@@ -294,7 +294,7 @@ class Wp_Ajax_Login_Public {
 	// LOGIN
 	public function pt_logout(){
 		wp_logout();
-		echo json_encode(array('error' => false, 'message'=> '<div class="alert alert-success">'.__('Подождите, перезагрузка страницы...', 'wp-ajax-login').'</div>'));
+		echo json_encode(array('error' => false, 'message'=> '<div class="alert alert-success">'._PLG_MAXX_AJAX_LOGIN_LOGOUT_SUCCESSFUL_RELOADING_PAGE.'</div>'));
 		die();
 	}
 
@@ -307,12 +307,12 @@ class Wp_Ajax_Login_Public {
 
 		// Check CSRF token
 		if( !check_ajax_referer( 'ajax-login-nonce', 'password-security', false) ){
-			echo json_encode(array('error' => true, 'message'=> '<div class="alert alert-danger">'.__('Session token has expired, please reload the page and try again', 'wp-ajax-login').'</div>'));
+			echo json_encode(array('error' => true, 'message'=> '<div class="alert alert-danger">'._PLG_MAXX_AJAX_LOGIN_SESSION_TOKEN_EXPIRED.'</div>'));
 		}		
 
 	 	// Check if input variables are empty
 	 	elseif( empty($username_or_email) ){
-			echo json_encode(array('error' => true, 'message'=> '<div class="alert alert-danger">Заполните все поля</div>'));
+			echo json_encode(array('error' => true, 'message'=> '<div class="alert alert-danger">'._PLG_MAXX_AJAX_LOGIN_PLEASE_FILL_ALL_FORM_FIELDS.'</div>'));
 	 	} else {
 
 			$username = is_email($username_or_email) ? sanitize_email($username_or_email) : sanitize_user($username_or_email);
@@ -331,7 +331,7 @@ class Wp_Ajax_Login_Public {
 				
 				echo json_encode(array('error' => true, 'message' => $display_errors));
 			}else{
-				echo json_encode(array('error' => false, 'message' => '<p class="alert alert-success">'.__('Пароль изменен. Проверьте ваш email.', 'wp-ajax-login').'</p>'));
+				echo json_encode(array('error' => false, 'message' => '<p class="alert alert-success">'._PLG_MAXX_AJAX_LOGIN_PASSWORD_RESET_PLEASE_CHECK_YOUR_EMAIL.'</p>'));
 			}
 	 	}
 
@@ -345,11 +345,11 @@ class Wp_Ajax_Login_Public {
 		$errors = new WP_Error();
 
 		if ( empty( $user_input ) ) {
-			$errors->add('empty_username', __('<strong>ОШИБКА</strong>: Введите логин или email.', 'wp-ajax-login'));
+			$errors->add('empty_username',_PLG_MAXX_AJAX_LOGIN_ERROR_ENTER_USERNAME_OR_EMAIL_ADDRESS);
 		} elseif ( strpos( $user_input, '@' ) ) {
 			$user_data = get_user_by( 'email', trim( $user_input ) );
 			if ( empty( $user_data ) )
-				$errors->add('invalid_email', __('<strong>ОШИБКА</strong>: Нет пользователя с таким email.', 'wp-ajax-login'));
+				$errors->add('invalid_email', _PLG_MAXX_AJAX_LOGIN_ERROR_INVALID_EMAIL);
 		} else {
 			$login = trim($user_input);
 			$user_data = get_user_by('login', $login);
@@ -368,7 +368,7 @@ class Wp_Ajax_Login_Public {
 			return $errors;
 
 		if ( !$user_data ) {
-			$errors->add('invalidcombo', __('<strong>ОШИБКА</strong>: Неправильный email.', 'wp-ajax-login'));
+			$errors->add('invalidcombo', _PLG_MAXX_AJAX_LOGIN_ERROR_WRONG_EMAIL);
 			return $errors;
 		}
                 $password = wp_generate_password( 20, false );

@@ -32,8 +32,6 @@ var cur_page = '<?php echo get_permalink() ?>';
 				if( ! is_user_logged_in() ){ // only show the registration/login form to non-logged-in members ?>	
 					<div class="modal-body">
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="btn-close" aria-hidden="true"></span></button>
-                                                <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
-						<!-- Register form -->
 						<div class="pt-register">
 							 
 <!--							<h3><?php printf( __('Join %s', 'wp-ajax-login'), get_bloginfo('name') ); ?></h3>
@@ -41,18 +39,14 @@ var cur_page = '<?php echo get_permalink() ?>';
 
 							<?php if( get_option('users_can_register') ){ ?>
 
-									<form id="pt_registration_form" action="<?php echo home_url( '/' ); ?>" method="POST">
-                                                                            <p class="cyr700">Регистрация на сайте</p>
-                                                                            <p >Добро пожаловать на сайт sdela.com.</p>
-                                                                            <p>Все данные доступны только зарегистрированым пользователям.</p>
-                                                                            <p class="cyr500">Попробуйте бесплатно в течение 14 дней. Без риска и кредитных карт.</p>
+							<form id="pt_registration_form" action="<?php echo home_url( '/' ); ?>" method="POST" autocomplete="off">
+                                                                            <p class="cyr700"><?php echo _PLG_MAXX_AJAX_LOGIN_REGISTRATION_ON_SITE?></p>
+                                                                            <p ><?php echo _PLG_MAXX_AJAX_LOGIN_WELCOME_TO_SITE?></p>
+                                                                            <p><?php echo _PLG_MAXX_AJAX_LOGIN_ACCESS_ALL_DATA?></p>
+                                                                            <p class="cyr500"><?php echo _PLG_MAXX_AJAX_LOGIN_TRY_TRIAL?></p>
 
-<!--										<div class="form-field">
-											<span class="screen-reader-text"><?php _e('Username', 'wp-ajax-login'); ?></span>
-											<input class="form-control input-lg required" name="pt_user_login" type="text" placeholder="<?php _e('Username', 'wp-ajax-login'); ?>" />
-										</div>-->
 										<div class="form-field">
-											<input class="form-control input-lg" name="pt_user_username" id="pt_user_username" type="text" placeholder="Фамилия Имя Отчество" autocomplete="name"/>
+											<input class="form-control input-lg" name="pt_user_username" id="pt_user_username" type="text" placeholder="<?php echo _PLG_MAXX_AJAX_LOGIN_FIO?>" autocomplete="name"/>
 										</div>
 										<div class="form-field">
 											<input class="form-control input-lg" name="phone" id="pt_user_phone" type="text" placeholder="(55) 555-55-55"  autocomplete="tel"/>
@@ -75,7 +69,7 @@ var cur_page = '<?php echo get_permalink() ?>';
 </label>   	
 </div>											
 										<div class="form-field">
-											<input class="form-control input-lg required" name="pt_user_email" id="pt_user_email" type="email" placeholder="Для регистрации укажите свой е-mail"  autocomplete="email"/>
+											<input class="form-control input-lg required" name="pt_user_email" id="pt_user_email" type="email" placeholder="<?php echo _PLG_MAXX_AJAX_LOGIN_REGISTER_EMAIL?>"  autocomplete="email"/>
 										</div>								
                                                                                 <div class="form-field">
                                                                                 <div class="g-recaptcha" data-sitekey="6Ley6AkUAAAAANotNT6Ntagzk2nhmoP97eXDy_o0"></div>    
@@ -83,16 +77,16 @@ var cur_page = '<?php echo get_permalink() ?>';
 
                                                                             
                                                                                 <div class="form-field">
-                                                                                        <input class="form-control input-lg required" name="pt_user_pass1" id="pt_user_pass1" type="password" placeholder="Придумайте пароль минимум 8 знаков" />
+																					<input class="form-control input-lg required" name="pt_user_pass1" id="pt_user_pass1" type="password" placeholder="<?php echo _PLG_MAXX_AJAX_LOGIN_REGISTER_PASSWORD?>" />
 										</div> 
                                                                             
                                                                                 <div class="form-field">
-                                                                                        <input class="form-control input-lg required" name="pt_user_pass2" id="pt_user_pass2" type="password" placeholder="Подтвердите свой пароль" />
+																					<input class="form-control input-lg required" name="pt_user_pass2" id="pt_user_pass2" type="password" placeholder="<?php echo _PLG_MAXX_AJAX_LOGIN_REGISTER_PASSWORD2?>" />
 										</div>                                                                             
 
 										<div class="form-field">
 											<input type="hidden" name="action" value="pt_register_member"/>
-											<button class="btn btn-theme btn-lg" data-loading-text="<?php _e('Подождите...', 'wp-ajax-login') ?>" type="submit">Зарегистрироваться</button>
+											<button class="btn btn-theme btn-lg" data-loading-text="<?php echo _PLG_MAXX_AJAX_LOGIN_WAIT ?>" type="submit"><?php echo _PLG_MAXX_AJAX_LOGIN_REGISTER?></button>
 										</div>
 										<?php wp_nonce_field( 'ajax-login-nonce', 'register-security' ); ?>
 									</form>
@@ -100,7 +94,7 @@ var cur_page = '<?php echo get_permalink() ?>';
 
 							<?php } else {
 
-								echo '<div class="alert alert-warning">'.__('Registration is disabled.', 'wp-ajax-login').'</div>';
+								echo '<div class="alert alert-warning">'._PLG_MAXX_AJAX_LOGIN_REGISTRATION_IS_DISABLED.'</div>';
 
 							} ?>
 
@@ -109,26 +103,24 @@ var cur_page = '<?php echo get_permalink() ?>';
 								<!-- Login form -->
 								<div class="pt-login">
 							 
-<!--									<h3><?php printf( __('Login to %s', 'wp-ajax-login'), get_bloginfo('name') ); ?></h3>-->
+<!--									<h3><?php printf( _PLG_MAXX_AJAX_LOGIN_LOGIN_TO, get_bloginfo('name') ); ?></h3>-->
 									<!--<hr>-->
 							 
 									<form id="pt_login_form" action="<?php echo home_url( '/' ); ?>" method="post">
-                                                                            <p class="cyr700">Вход на сайт</p>
-                                                                            <p >Добро пожаловать на сайт sdela.com.</p>
-                                                                            <p>Все данные доступны только зарегистрированым пользователям.</p>
+                                                                            <p class="cyr700"><?php echo _PLG_MAXX_AJAX_LOGIN_ENTER_SITE?></p>
+                                                                            <p><?php echo _PLG_MAXX_AJAX_LOGIN_WELCOME_TO_SITE?></p>
+                                                                            <p><?php echo _PLG_MAXX_AJAX_LOGIN_ACCESS_ALL_DATA?></p>
 										<div class="form-field">
-											<span class="screen-reader-text"><?php _e('Username', 'wp-ajax-login') ?></span>
-											<input class="form-control input-lg required" name="pt_user_login" type="text" placeholder="Ваш е-mail" />
+											<input class="form-control input-lg required" name="pt_user_login" type="text" placeholder="<?php echo _PLG_MAXX_AJAX_LOGIN_EMAIL?>" />
 										</div>
 										<div class="form-field">
-											<span class="screen-reader-text"><?php _e('Password', 'wp-ajax-login')?></span>
-											<input class="form-control input-lg required" name="pt_user_pass" id="pt_user_pass" type="password" placeholder="Ваш пароль">
+											<input class="form-control input-lg required" name="pt_user_pass" id="pt_user_pass" type="password" placeholder="<?php echo _PLG_MAXX_AJAX_LOGIN_PASSWORD?>">
 										</div>
                                                                             <div class="form-field forgetmenot">
 <label for="rememberme">
     <input class="checkbox" name="rememberme" type="checkbox" id="rememberme" value="forever"> 
     <span class="checkbox-custom"></span>
-    <span class="label">Запомнить меня</span>
+    <span class="label"><?php echo _PLG_MAXX_AJAX_LOGIN_REMEMBER_ME?></span>
     
 </label>                                                                                
                                                                                 
@@ -136,7 +128,7 @@ var cur_page = '<?php echo get_permalink() ?>';
                                                                             
 										<div class="form-field">
 											<input type="hidden" name="action" value="pt_login_member"/>
-											<button class="btn btn-theme btn-lg enter" data-loading-text="<?php _e('Подождите...', 'wp-ajax-login') ?>" type="submit">Войти</button> <a class="alignright1" href="#pt-reset-password">Забыли пароль?</a>
+											<button class="btn btn-theme btn-lg enter" data-loading-text="<?php echo _PLG_MAXX_AJAX_LOGIN_WAIT ?>" type="submit"><?php echo _PLG_MAXX_AJAX_LOGIN_ENTER?></button> <a class="alignright1" href="#pt-reset-password"><?php echo _PLG_MAXX_AJAX_LOGIN_FORGOT_PASSWORD?></a>
 										</div>
 										<?php wp_nonce_field( 'ajax-login-nonce', 'login-security' ); ?>
 									</form>
@@ -146,7 +138,7 @@ var cur_page = '<?php echo get_permalink() ?>';
                                                                 <!-- Info -->
 								<div class="pt-info">
 							 
-                                   <p>Введите e-mail/логин использованный при регистрации и мы отправим Вам письмо с Вашим новым паролем</p>
+                                   <p><?php echo _PLG_MAXX_AJAX_LOGIN_ENTER_EMAIL_LOGIN?></p>
 							 
 								</div>                                                               
                                                                 
@@ -154,18 +146,17 @@ var cur_page = '<?php echo get_permalink() ?>';
 								<!-- Lost Password form -->
 								<div class="pt-reset-password">
 									
-                                                                    <p class="cyr700">Напомнить пароль</p>
-                                                                    <p>Введите e-mail/логин использованный при регистрации и мы отправим Вам письмо с Вашим новым паролем</p>
+                                                                    <p class="cyr700"><?php echo _PLG_MAXX_AJAX_LOGIN_SEND_PASSWORD?></p>
+                                                                    <p><?php echo _PLG_MAXX_AJAX_LOGIN_EMAIL_FOR_NEW_PASSWORD?></p>
 									<!--<hr>-->
 							 
 									<form id="pt_reset_password_form" action="<?php echo home_url( '/' ); ?>" method="post">
 										<div class="form-field">
-											<span class="screen-reader-text"><?php _e('Username or E-mail', 'wp-ajax-login') ?></span>
-											<input class="form-control input-lg required" name="pt_user_or_email" id="pt_user_or_email" type="text" placeholder="Введите Ваш е-mail или логин" />
+											<input class="form-control input-lg required" name="pt_user_or_email" id="pt_user_or_email" type="text" placeholder="<?php echo _PLG_MAXX_AJAX_LOGIN_ENTER_EMAIL_OR_LOGIN?>" />
 										</div>
 										<div class="form-field">
 											<input type="hidden" name="action" value="pt_reset_password"/>
-											<button class="btn btn-theme btn-lg" data-loading-text="<?php _e('Подождите...', 'wp-ajax-login') ?>" type="submit">Отправить</button>
+											<button class="btn btn-theme btn-lg" data-loading-text="<?php echo _PLG_MAXX_AJAX_LOGIN_WAIT ?>" type="submit"><?php echo _PLG_MAXX_AJAX_LOGIN_SEND?></button>
 										</div>
 										<?php wp_nonce_field( 'ajax-login-nonce', 'password-security' ); ?>
 									</form>
@@ -173,17 +164,17 @@ var cur_page = '<?php echo get_permalink() ?>';
 								</div>
 
 								<div class="pt-loading">
-									<p><i class="fa fa-refresh fa-spin"></i><br><?php _e('Подождите...', 'wp-ajax-login') ?></p>
+									<p><i class="fa fa-refresh fa-spin"></i><br><?php echo _PLG_MAXX_AJAX_LOGIN_WAIT ?></p>
 								</div>
 					</div>
 					<div class="modal-footer">
-							<span class="pt-register-footer"><a href="#pt-register">Зарегистрируйтесь</a>, если у Вас еще нет аккаунта.</span>
-							<span class="pt-login-footer"><a href="#pt-login">Войдите на сайт</a>, если Вы уже зарегистрованы ранее. </span>
+							<span class="pt-register-footer"><a href="#pt-register"><?php echo _PLG_MAXX_AJAX_LOGIN_REGISTER_LINK?></a>, <?php echo _PLG_MAXX_AJAX_LOGIN_NO_ACCOUNT?></span>
+							<span class="pt-login-footer"><a href="#pt-login"><?php echo _PLG_MAXX_AJAX_LOGIN_ENTER_SITE_LINK?></a>, <?php echo _PLG_MAXX_AJAX_LOGIN_HAVE_ACCOUNT?></span>
 					</div>
 				<?php } else { ?>
 					<div class="modal-body">
 						<div class="pt-logout">							
-							<div class="alert alert-info"><?php $current_user = wp_get_current_user(); printf( __( 'Вы зарегестрированы как %1$s. <a href="#logout">Выйти?</a>', 'wp-ajax-login' ), $current_user->user_login );?></div>
+							<div class="alert alert-info"><?php $current_user = wp_get_current_user(); printf( _PLG_MAXX_AJAX_LOGIN_REGISTER_AS, $current_user->user_login );?></div>
 							<div class="pt-errors"></div>
 						</div>
 					</div>
@@ -193,34 +184,6 @@ var cur_page = '<?php echo get_permalink() ?>';
 		</div>
 <?php }
 add_action('wp_footer', 'pt_login_register_modal');
-
-/**
- * Automatically add a Login link to Primary Menu
- * User filter 'login_menu_location' to change the menu location on your need. 
- * Below example will add the login/register link to 'footer' menu location
- * add_filter('login_menu_location', function(){return 'footer';});
- */
-//add_filter( 'wp_nav_menu_items', 'pt_login_link_to_menu', 10, 2 );
-//function pt_login_link_to_menu ( $items, $args ) {
-//    if( $args->theme_location == apply_filters('login_menu_location', 'primary') ) {
-//
-//    	if ( ! is_user_logged_in() ) {
-//    		$text = __( 'Login/Register', 'wp-ajax-login' );
-//    	} else {
-//    		$text = __( 'Logout?', 'wp-ajax-login' );
-//    	}
-//        	$items .= '<li class="menu-item login-link"><a href="#pt-login">'.$text.'</a></li>';
-//
-//    }
-//    return $items;
-//}
-
-/**
- * Register the shortcode [wp-ajax-login].
- * One attribue is accept: text. Default is 'Login/Register' which indicates the link text
- *
- * @since    1.0.0
- */
 function pt_shortcode( $atts ) {
 
 	$atts = shortcode_atts( array(

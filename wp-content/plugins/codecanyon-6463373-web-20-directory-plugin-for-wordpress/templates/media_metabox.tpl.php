@@ -162,7 +162,7 @@ $img_height = (get_option('thumbnail_size_h')) ? get_option('thumbnail_size_h') 
 	})(jQuery);
 </script>
 <div class="video-wrapper">
-<h3>Upload video (mp4)</h3>
+<!--<h3>Upload video (mp4)</h3>
             <p class="form-notice"></p>
             <style>
                 .video-preview video{
@@ -171,8 +171,6 @@ $img_height = (get_option('thumbnail_size_h')) ? get_option('thumbnail_size_h') 
             </style>
             <?php 
             $vid_id = get_post_meta( $listing->post->ID, 'vid_id', true );
-            //echo $listing->post->ID;
-            // $a = wp_get_attachment_url($vid_id);
             ?>
             <div class="image-form">
                 <p class="image-notice"><?php echo $vid_id? '<a href="#" class="btn-change-image">Изменить?</a>':''?></p>
@@ -183,8 +181,8 @@ $img_height = (get_option('thumbnail_size_h')) ? get_option('thumbnail_size_h') 
             </div>    
             <div class="video-preview"><video id="v_listing" <?php echo $vid_id? 'controls src="'.wp_get_attachment_url($vid_id).'"':''?>></video></div>
     
-    
-    <?php //echo do_shortcode('[image_form]');?>
+    -->
+    <?php echo do_shortcode('[image_form]');?>
 
 </div>
 
