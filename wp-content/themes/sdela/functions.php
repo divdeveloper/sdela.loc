@@ -24,6 +24,8 @@
     {
         wp_register_style('bootstrap.css', get_template_directory_uri() . '/css/bootstrap.css', array(), '1', 'all' );
         wp_enqueue_style( 'bootstrap.css');
+        //zk: дополнительные стили
+        wp_enqueue_style( 'select2', 'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css' );
         wp_enqueue_style( 'stylesheet', get_stylesheet_uri(), array(), '1', 'all' );
         wp_enqueue_style('font-awesome', get_template_directory_uri() . '/css/font-awesome.min.css');
         wp_enqueue_style('files', get_template_directory_uri() . '/css/fileinput.min.css');
@@ -42,7 +44,10 @@ add_editor_style('css/editor-style.css');
         wp_enqueue_script('theme-js', get_template_directory_uri() . '/js/bootstrap.js',array( 'jquery' ),$version,true );
         wp_enqueue_script('files-js', get_template_directory_uri() . '/js/fileinput.min.js',array( 'jquery' ),$version,true );
         wp_enqueue_script('ru-js', get_template_directory_uri() . '/js/ru.js',array( 'files-js' ),$version,true );
-        
+
+	    //zk: дополнительные скрипты
+        wp_enqueue_script( 'select2', 'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js' );
+        wp_enqueue_script( 'sdela', get_template_directory_uri() . '/js/sdela.js', array('select2'));
         wp_enqueue_script( 'myuploadscript', get_template_directory_uri() . '/js/upload.js', array('jquery'), null, false );
 	 	// подключаем все необходимые скрипты: jQuery, jquery-ui, datepicker
 		wp_enqueue_script('jquery-ui-datepicker');
@@ -295,4 +300,41 @@ function bal_pre_get_posts( $query ) {
 }
 add_action( 'pre_get_posts', 'bal_pre_get_posts' );
 
-?>
+function sdela_select_categories($w2dc_instance) {
+    $html = '';
+	if ($terms = sdela_get_w2dc_categories()) {
+		$category_field = $w2dc_instance->content_fields->getContentFieldBySlug('categories_list');
+		$placeholder = $category_field->description ? $category_field->description : $category_field->name;
+
+		$checked_categories_ids = array();
+		$checked_categories = wp_get_object_terms($w2dc_instance->current_listing->post->ID, W2DC_CATEGORIES_TAX);
+		foreach ($checked_categories AS $term)
+			$checked_categories_ids[] = $term->term_id;
+
+		$html .= '<select id="w2dc-category" class="select2" data-placeholder="'.$placeholder.'" name="tax_input[' . W2DC_CATEGORIES_TAX . '][]">';
+		$html .= '<option value=""></option>';
+		$subcat_options = array('<option value=""></option>');
+		foreach ($terms AS $term) {
+			if (in_array($term->term_id, $checked_categories_ids))
+				$selected = 'selected';
+			else
+				$selected = '';
+			$subcategories = array();
+            foreach (sdela_get_w2dc_categories($term->term_id) as $subterm) {
+                $subcategories[] = $subterm->term_id;
+                $subcat_options[] = '<option value="' . $subterm->term_id . '">' . $subterm->name . '</option>';
+            }
+			$html .= '<option ' . $selected . ' value="' . $term->term_id . '" data-children="'.json_encode($subcategories).'">' . $term->name . '</option>';
+		}
+		$html .= '</select>';
+		$category_field = $w2dc_instance->content_fields->getContentFieldBySlug('subcategory');
+		$placeholder = $category_field->description ? $category_field->description : $category_field->name;
+		$html .= '<select id="w2dc-subcategory" class="select2-children" data-placeholder="'.$placeholder.'" name="tax_input[' . W2DC_CATEGORIES_TAX . '][]">';
+		$html .= implode($subcat_options);
+		$html .= '</select>';
+	}
+    return $html;
+}
+function sdela_get_w2dc_categories($parent = 0) {
+    return get_categories(array('taxonomy' => W2DC_CATEGORIES_TAX, 'pad_counts' => true, 'hide_empty' => false, 'parent' => $parent));
+}

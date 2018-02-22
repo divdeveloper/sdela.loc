@@ -1,0 +1,592 @@
+/*
+ Theme Name: SDELA.RU
+ Description: Theme for SDELA.RU site based on DevDmBootstrap3 and Twitter Bootstrap 3.3.6.
+ Version: 1.0
+
+
+/****************** Special Blank CSS classes for child themes to use without disturbing core bootstrap styles ****************/
+
+@font-face
+	font-family: 'museo300'
+	src: url('fonts/museo300.ttf') format("truetype")
+	font-weight: normal
+	font-style: normal
+
+
+@font-face
+	font-family: 'museo500'
+	src: url('./fonts/museo500.ttf') format("truetype")
+	font-weight: normal
+	font-style: normal
+
+
+@font-face
+	font-family: 'museo700'
+	src: url('./fonts/museo700.ttf') format("truetype")
+	font-weight: normal
+	font-style: normal
+
+
+@font-face
+	font-family: 'houschka_roundedbold'
+	src: url('./fonts/9375-webfont.eot')
+	src: url('./fonts/9375-webfont.eot?#iefix') format("embedded-opentype"), url('./fonts/9375-webfont.woff2') format("woff2"), url('./fonts/9375-webfont.woff') format("woff"), url('./fonts/9375-webfont.ttf') format("truetype"), url('./fonts/9375-webfont.svg#houschka_roundedbold') format("svg")
+	font-weight: normal
+	font-style: normal
+
+
+@font-face
+	font-family: 'museo_sans_cyrl300'
+	src: url('./fonts/museosanscyrl_0-webfont.eot')
+	src: url('./fonts/museosanscyrl_0-webfont.eot?#iefix') format("embedded-opentype"), url('./fonts/museosanscyrl_0-webfont.woff2') format("woff2"), url('./fonts/museosanscyrl_0-webfont.woff') format("woff"), url('./fonts/museosanscyrl_0-webfont.ttf') format("truetype"), url('./fonts/museosanscyrl_0-webfont.svg#museo_sans_cyrl300') format("svg")
+	font-weight: normal
+	font-style: normal
+
+
+@font-face
+	font-family: 'museo_sans_cyrl500'
+	src: url('./fonts/museosanscyrl_1-webfont.eot')
+	src: url('./fonts/museosanscyrl_1-webfont.eot?#iefix') format("embedded-opentype"), url('./fonts/museosanscyrl_1-webfont.woff2') format("woff2"), url('./fonts/museosanscyrl_1-webfont.woff') format("woff"), url('./fonts/museosanscyrl_1-webfont.ttf') format("truetype"), url('./fonts/museosanscyrl_1-webfont.svg#museo_sans_cyrl500') format("svg")
+	font-weight: normal
+	font-style: normal
+
+
+body
+	background-color: #f8f8f8
+	padding-bottom: 0px
+
+.dmbs-container
+
+.dmbs-header
+	background-color: #f8f8f8
+
+.dmbs-header-img img
+	float: left
+	margin-right: 20px
+
+.dmbs-header-text
+	h1
+		font-family: houschka_roundedbold
+		font-weight: bold
+		font-size: 22px
+		> a
+			text-decoration: none
+	h4
+		font-family: museo_sans_cyrl300, "Helvetica Neue", Helvetica, Arial, sans-serif
+		/*font-weight: 300;
+		font-size: 15px
+	&.registration
+		div
+			padding-top: 20px
+		a
+			font-family: museo_sans_cyrl300, "Helvetica Neue", Helvetica, Arial, sans-serif
+			font-size: 16px
+			color: #000000
+			&:hover
+				text-decoration: none
+				color: #669933
+	img
+		float: left
+		margin-right: 20px
+
+.dmbs-top-menu .navbar-nav > li > a
+	font-family: museo_sans_cyrl300, "Helvetica Neue", Helvetica, Arial, sans-serif
+	line-height: 50px
+	color: #000000
+	font-size: 16px
+	border-bottom: solid 1px transparent
+	&:hover
+		background-color: #f8f8f8
+		color: #669933
+		/*text-decoration: underline;
+		border-bottom: solid 1px #669933
+
+a:active, .dmbs-top-menu .navbar-nav > .active > a
+	background-color: #f8f8f8
+	color: #669933
+	/*text-decoration: underline;
+	border-bottom: solid 1px #669933
+
+a
+	&:hover, &:focus
+		background-color: #f8f8f8
+		color: #669933
+		/*text-decoration: underline;
+		border-bottom: solid 1px #669933
+
+.navbar-toggle
+	border: 1px solid #000
+	.icon-bar
+		background-color: #000
+
+.dmbs-content
+
+.dmbs-mainpage
+	height: 445px
+	background-image: url(/wp-content/themes/sdela/img/background.jpg)
+	background-position: top center
+	background-repeat: no-repeat
+	background-attachment: scroll
+
+.mainpage_header
+	h3
+		font-family: museo_sans_cyrl300, "Helvetica Neue", Helvetica, Arial, sans-serif
+		color: #000000
+		font-size: 28px
+		margin-top: 80px
+	p
+		font-family: museo_sans_cyrl300, "Helvetica Neue", Helvetica, Arial, sans-serif
+		color: #000000
+		font-size: 16px
+		margin-top: 40px
+	a
+		font-family: museo_sans_cyrl300, "Helvetica Neue", Helvetica, Arial, sans-serif
+		color: #ffffff
+		background-color: #df3e28 !important
+		font-size: 16px
+		margin-top: 80px
+		border-radius: 0
+		height: 50px
+		line-height: 37px
+		padding-left: 15px
+		padding-right: 15px
+		position: relative
+		left: 20%
+		&:hover
+			background-color: #d9534f !important
+			border-color: #d9534f !important
+	img
+		margin-top: -3px
+		margin-left: 15px
+
+.main-page-img
+	float: left
+	height: 200px
+	margin-top: 20px
+
+.main-page-header h3
+	font-family: museo_sans_cyrl500, "Helvetica Neue", Helvetica, Arial, sans-serif
+	color: #669933
+	font-size: 18px
+
+.main-page-text p
+	font-family: museo_sans_cyrl300, "Helvetica Neue", Helvetica, Arial, sans-serif
+	color: #000000
+	font-size: 16px
+
+.dmbs-main
+	padding-top: 35px
+	h2
+		text-align: center
+		border: none
+		font-family: museo_sans_cyrl300, "Helvetica Neue", Helvetica, Arial, sans-serif
+		color: #000000
+		font-size: 25px
+
+.dmbs-left, .dmbs-right, .dmbs-footer-menu, .dmbs-author-credits, .dmbs-footer
+
+.dmbs-footer-wrap
+	background-color: #3f3f3f
+
+.dmbs-footer
+	img
+		float: left
+		margin-right: 20px
+	h1
+		font-family: houschka_roundedbold
+		font-weight: bold
+		font-size: 22px
+		color: #828282
+	h4
+		font-family: museo_sans_cyrl300, "Helvetica Neue", Helvetica, Arial, sans-serif
+		font-size: 15px
+		color: #828282
+		margin-top: -10px
+
+.footer-logo
+	padding-top: 75px
+	padding-bottom: 75px
+
+.footer-menu
+	padding-top: 40px
+	ul
+		list-style: none
+		> li > a
+			font-family: museo_sans_cyrl300, "Helvetica Neue", Helvetica, Arial, sans-serif
+			font-size: 15px
+			color: #c4c4c4
+			line-height: 25px
+			&:hover
+				background-color: transparent
+				border-bottom: none
+
+.footer-top
+	border-bottom: solid 1px #525252
+
+.footer-social
+	text-align: center
+	padding-bottom: 40px
+	padding-top: 40px
+	.fa
+		font-size: 35px
+		color: #828282
+		margin: 0px 10px 0px 10px
+		&:hover
+			color: #ffffff
+	a:hover
+		background-color: transparent
+		border-bottom: none
+
+/*--------всплывающее окно регистрации------------
+
+.b-popup
+	display: none
+	width: 100%
+	min-height: 100%
+	background-color: rgba(0, 0, 0, 0.5)
+	overflow: hidden
+	position: fixed
+	top: 0px
+	.b-popup-content
+		display: none
+		margin: 10% auto 0px auto
+		width: 50%
+		padding: 10px
+		background-color: #ffffff
+		border-radius: 5px
+		/*box-shadow: 0px 0px 10px #000;
+		position: relative
+
+.close-popup
+	display: none
+	position: absolute
+	top: 5px
+	right: 5px
+	background: url(img/close.png) no-repeat center center
+	width: 25px
+	height: 25px
+	cursor: pointer
+	font-size: 38px
+	color: #ffffff
+
+.b-popup-content
+	h3
+		font-family: museo_sans_cyrl500, "Helvetica Neue", Helvetica, Arial, sans-serif
+		color: #000000
+		font-size: 24px
+		text-align: center
+		margin-bottom: 30px
+		font-weight: 700
+	p
+		font-family: museo_sans_cyrl300, "Helvetica Neue", Helvetica, Arial, sans-serif
+		color: #000000
+		font-size: 18px
+		text-align: center
+
+.fw500
+	font-family: museo_sans_cyrl500, "Helvetica Neue", Helvetica, Arial, sans-serif
+
+.b-popup-content p.errormsg
+	color: #ff0000
+	/*margin-top: -20px;
+	font-size: 14px
+
+/*--------всплывающее окно логина------------
+
+.l-popup
+	display: none
+	width: 100%
+	min-height: 100%
+	background-color: rgba(0, 0, 0, 0.5)
+	overflow: hidden
+	position: fixed
+	top: 0px
+	.l-popup-content
+		display: none
+		margin: 10% auto 0px auto
+		width: 50%
+		padding: 10px
+		background-color: #ffffff
+		border-radius: 5px
+		/*box-shadow: 0px 0px 10px #000;
+		position: relative
+
+.close-l-popup
+	display: none
+	position: absolute
+	top: 5px
+	right: 5px
+	background: url(img/close.png) no-repeat center center
+	/*background-image: url(/wp-content/themes/sdela/img/cross.png);
+	width: 25px
+	height: 25px
+	cursor: pointer
+	font-size: 38px
+	color: #ffffff
+
+.l-popup-content
+	h3
+		font-family: museo_sans_cyrl500, "Helvetica Neue", Helvetica, Arial, sans-serif
+		color: #000000
+		font-size: 22px
+		text-align: center
+		margin-bottom: 30px
+	p
+		font-family: museo_sans_cyrl300, "Helvetica Neue", Helvetica, Arial, sans-serif
+		color: #000000
+		font-size: 17px
+		text-align: center
+
+/*----------------Добавление ЗТУ----------------
+
+.add-form
+	margin-top: 35px
+	margin-bottom: 35px
+
+.form-type
+	font-family: museo_sans_cyrl500, "Helvetica Neue", Helvetica, Arial, sans-serif
+	border-radius: 0
+	background-color: #3591e0
+	color: #ffffff
+	text-transform: uppercase
+	font-size: 20px
+
+.add-images, .add-place, .add-details, .add-video
+	margin-top: 35px
+
+.zakaz
+	min-width: 150px
+	float: right
+
+#inputNewCategory, #inputNewSubCategory
+	margin-bottom: 15px
+
+.type-ztu
+	float: left
+	margin: 0px 5px
+	font-family: museo_sans_cyrl500, "Helvetica Neue", Helvetica, Arial, sans-serif
+	font-size: 16px
+	padding: 5px
+	color: #ffffff
+	text-transform: uppercase
+
+#type0
+	background-color: #3591e0
+
+#type1, .ztu-submit
+	background-color: #689a1e
+
+.inputPrice
+	padding-left: 0px
+
+.inputPriceType
+	padding-right: 0px
+
+/*---------------Карта--------------------------
+
+.ztu-map h3
+	display: none
+
+#geo-mashup-inline-help-link-wrap a
+	color: #000000
+	&:focus
+		color: #669933
+	&:hover
+		color: #669933
+		text-decoration: none
+
+a
+	&:active, &:focus
+		color: #669933
+		text-decoration: none
+
+#geo-mashup-inline-help-link-wrap:hover
+	border: none
+
+/*---------------Изображения--------------------------
+
+#inputImage
+	background-color: #689a1e
+	float: left
+	margin: 0px 5px
+	font-family: museo_sans_cyrl500, "Helvetica Neue", Helvetica, Arial, sans-serif
+	font-size: 16px
+	padding: 5px
+	color: #ffffff
+	margin-top: 15px
+
+.image-buttons
+	margin: 0px 5px
+	font-family: museo_sans_cyrl500, "Helvetica Neue", Helvetica, Arial, sans-serif
+	font-size: 16px
+	padding: 5px
+	color: #ffffff
+	margin-top: 15px
+	margin-bottom: 15px
+	background-color: #689a1e
+	&:hover, &:focus, &:active
+		background-color: #689a1e
+		color: #ffffff
+
+/*-------------Список-------------------
+
+.type1
+	border: solid 2px #60970e
+
+.type2
+	border: solid 2px #f85c07
+
+.list-ztu
+	margin-bottom: 30px
+	h2
+		text-align: left
+		float: left
+		margin-top: 25px
+		a
+			font-family: museo_sans_cyrl500, "Helvetica Neue", Helvetica, Arial, sans-serif
+			font-size: 22px
+			color: #000000
+			&:hover
+				border: none
+				color: #60970e
+
+.list-price
+	float: right
+	margin-top: 25px
+	font-family: museo_sans_cyrl500, "Helvetica Neue", Helvetica, Arial, sans-serif
+	font-size: 22px
+	color: #000000
+
+.ztutype1
+	background-color: #60970e
+	font-family: museo_sans_cyrl500, "Helvetica Neue", Helvetica, Arial, sans-serif
+	font-size: 17px
+	color: #ffffff
+	text-align: center
+	padding: 0px 10px
+	float: left
+
+.ztutype2
+	background-color: #f85c07
+	font-family: museo_sans_cyrl500, "Helvetica Neue", Helvetica, Arial, sans-serif
+	font-size: 17px
+	color: #ffffff
+	text-align: center
+	padding: 0px 10px
+	float: left
+
+.ztu-cat
+	float: left
+	padding: 0px 10px
+	font-family: museo_sans_cyrl500, "Helvetica Neue", Helvetica, Arial, sans-serif
+	font-size: 17px
+
+.list-count
+	font-family: museo_sans_cyrl500, "Helvetica Neue", Helvetica, Arial, sans-serif
+	font-size: 13px
+	margin-top: 5px
+
+.user-details
+	padding-top: 30px
+
+span
+	&.fromyou
+		color: #999999
+		text-decoration: underline
+		font-family: museo_sans_cyrl500, "Helvetica Neue", Helvetica, Arial, sans-serif
+		font-size: 18px
+	&.distance
+		font-family: museo_sans_cyrl500, "Helvetica Neue", Helvetica, Arial, sans-serif
+		font-size: 25px
+		color: #2475d1
+	&.time
+		font-family: museo_sans_cyrl500, "Helvetica Neue", Helvetica, Arial, sans-serif
+		font-size: 20px
+
+.distance-wrap
+	padding-top: 30px
+
+.time-wrap
+	padding-top: 10px
+
+.action-button
+	margin-top: 35px
+	margin-bottom: 10px
+	text-align: right
+
+span.action
+	color: #689a1e
+	font-size: 40px
+	border: solid 2px #689a1e
+	border-radius: 50%
+	padding: 0 11px
+	cursor: pointer
+
+.list-popup
+	display: none
+	position: absolute
+	background-color: #ffffff
+	border: solid 1px #000000
+	bottom: 30px
+	right: 40px
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5)
+	border-radius: 5px
+	text-align: left
+	padding: 15px
+	width: 120%
+
+.list-popup-row
+	font-family: museo_sans_cyrl500, "Helvetica Neue", Helvetica, Arial, sans-serif
+	font-size: 16px
+	cursor: pointer
+	margin-bottom: 10px
+	&:hover
+		color: #999999
+
+/*-------------Детальный вид объявления--------------
+
+.single-title
+	font-family: museo_sans_cyrl300, "Helvetica Neue", Helvetica, Arial, sans-serif
+	font-size: 18px
+
+.single-descr
+	font-family: museo_sans_cyrl500, "Helvetica Neue", Helvetica, Arial, sans-serif
+	font-size: 22px
+
+.row-margin
+	margin-top: 35px
+
+.single-video img
+	width: 100%
+
+p.distance
+	color: #2475d1
+
+.modal-content button.close span
+	width: 28px
+	height: 28px
+	position: absolute
+	right: 5px
+	top: 5px
+	background: transparent url(img/close.png) no-repeat center center
+
+.phonetype1
+	background: transparent url(img/viber.png) no-repeat center center
+	background-size: cover
+
+.phonetype2
+	background: transparent url(img/skype.png) no-repeat center center
+	background-size: cover
+
+.phonetype3
+	background: transparent url(img/telegram.png) no-repeat center center
+	background-size: cover
+
+/*-------------Media queries---------------
+@media (min-width: 768px)
+	.zakaz
+		margin-bottom: -34px
+
+@media (max-width: 767px)
+	.list-popup
+		width: 50%
