@@ -91,13 +91,8 @@
 	
 		<?php if ($w2dc_instance->current_listing->level->categories_number > 0 || $w2dc_instance->current_listing->level->unlimited_categories): ?>
 		<div class="w2dc-submit-section w2dc-submit-section-categories">
-			<h3 class="w2dc-submit-section-label"><?php echo $w2dc_instance->content_fields->getContentFieldBySlug('categories_list')->name; ?><?php if ($w2dc_instance->content_fields->getContentFieldBySlug('categories_list')->is_required): ?><span class="w2dc-red-asterisk">*</span><?php endif; ?></h3>
 			<div class="w2dc-submit-section-inside">
-<?php echo sdela_select_categories($w2dc_instance) ?>
-				<div class="w2dc-categories-tree-panel w2dc-editor-class" id="<?php echo W2DC_CATEGORIES_TAX; ?>-all">
-					<?php w2dc_terms_checklist($w2dc_instance->current_listing->post->ID); ?>
-				</div>
-				<?php if ($w2dc_instance->content_fields->getContentFieldBySlug('categories_list')->description): ?><p class="description"><?php echo $w2dc_instance->content_fields->getContentFieldBySlug('categories_list')->description; ?></p><?php endif; ?>
+                <?php echo sdela_select_categories($w2dc_instance); ?>
 			</div>
 		</div>
 		<?php endif; ?>
@@ -115,7 +110,12 @@
 		<?php if ($w2dc_instance->content_fields->isNotCoreContentFields()): ?>
 		<div class="w2dc-submit-section w2dc-submit-section-conetnt-fields">
 			<div class="w2dc-submit-section-inside">
-				<?php $w2dc_instance->content_fields_manager->contentFieldsMetabox($w2dc_instance->current_listing->post); ?>
+                <?php echo sdela_select_datetime(
+                        $w2dc_instance->content_fields->getContentFieldBySlug('begin'),
+                        $w2dc_instance->content_fields->getContentFieldBySlug('end')
+                );
+
+                // $w2dc_instance->content_fields_manager->contentFieldsMetabox($w2dc_instance->current_listing->post); ?>
 			</div>
 		</div>
 		<?php endif; ?>

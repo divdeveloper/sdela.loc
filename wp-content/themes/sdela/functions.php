@@ -46,13 +46,13 @@ add_editor_style('css/editor-style.css');
         wp_enqueue_script('ru-js', get_template_directory_uri() . '/js/ru.js',array( 'files-js' ),$version,true );
 
 	    //zk: дополнительные скрипты
-        wp_enqueue_script( 'select2', 'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js' );
-        wp_enqueue_script( 'sdela', get_template_directory_uri() . '/js/sdela.js', array('select2'));
+        wp_enqueue_script( 'select2', 'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js', false, null, true );
+        wp_enqueue_script( 'sdela', get_template_directory_uri() . '/js/sdela.js', array('select2', 'jquery'), $version, true);
         wp_enqueue_script( 'myuploadscript', get_template_directory_uri() . '/js/upload.js', array('jquery'), null, false );
 	 	// подключаем все необходимые скрипты: jQuery, jquery-ui, datepicker
-		wp_enqueue_script('jquery-ui-datepicker');
+		//wp_enqueue_script('jquery-ui-datepicker');
 		// подключаем нужные css стили
-		wp_enqueue_style('jqueryui', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css', false, null );
+		//wp_enqueue_style('jqueryui', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css', false, null );
     }
     add_action('wp_enqueue_scripts', 'devdmbootstrap3_theme_js');
 
@@ -225,14 +225,14 @@ function filter_geo_mashup_load_location_editor( $load_flag ) {
 ////////////////////////////////////////////////////////////////////
 // Register check-date.jd
 ////////////////////////////////////////////////////////////////////
-function check_date_js()
-{
-    if ( is_page('119') ) { 
-        global $version;
-        wp_enqueue_script('check-date-js', get_template_directory_uri() . '/js/check-date.js',array( 'jquery' ),$version,true );
-    }
-}
-add_action('wp_enqueue_scripts', 'check_date_js');
+//function check_date_js()
+//{
+//    if ( is_page('119') ) {
+//        global $version;
+//        wp_enqueue_script('check-date-js', get_template_directory_uri() . '/js/check-date.js',array( 'jquery' ),$version,true );
+//    }
+//}
+//add_action('wp_enqueue_scripts', 'check_date_js');
 
 
 function bal_filter_users( $query ) {
@@ -337,4 +337,46 @@ function sdela_select_categories($w2dc_instance) {
 }
 function sdela_get_w2dc_categories($parent = 0) {
     return get_categories(array('taxonomy' => W2DC_CATEGORIES_TAX, 'pad_counts' => true, 'hide_empty' => false, 'parent' => $parent));
+}
+
+function sdela_select_datetime($field_start, $field_finish = null) {
+	wp_enqueue_script( 'airdatepicker', get_template_directory_uri() . '/lib/airdatepicker/js/datepicker.js', array('jquery'), null, true);
+	wp_enqueue_style( 'airdatepicker', get_template_directory_uri() . '/lib/airdatepicker/css/datepicker.css');
+	wp_enqueue_script( 'clockpicker', get_template_directory_uri() . '/lib/clockpicker/bootstrap-clockpicker.js', array('jquery'), null, true);
+	wp_enqueue_style( 'clockpicker', get_template_directory_uri() . '/lib/clockpicker/bootstrap-clockpicker.css');
+    $html = <<<DATETIME
+	<ul class="srs-filter-date-container">
+	    <li>
+		    <label class="srs-filter-date srs-filter-date-from">
+		        <p>$field_start->name с </p>
+				<input type="text" class="blue-border">
+				<i class="srs-filter-date-btn"></i>
+			</label>
+		</li>
+		<li>
+			<label class="srs-filter-date srs-filter-date-to">
+			    <p> по </p>
+			    <input type="text" class="blue-border">
+			    <i class="srs-filter-date-btn"></i>
+			</label>
+		</li>
+	</ul>
+	<ul class="srs-filter-time">
+		<li>
+			<label class="srs-ft-from">
+				<p>Время от</p>
+				<input type="text" class="blue-border">
+				<i class="srs-filter-time-btn"></i>
+			</label>
+		</li>
+		<li>
+		    <label class="srs-ft-to">
+			    <p>	до </p>
+			    <input type="text" class="blue-border">
+		        <i class="srs-filter-time-btn"></i>
+			</label>
+		</li>
+	</ul>
+DATETIME;
+    return $html;
 }

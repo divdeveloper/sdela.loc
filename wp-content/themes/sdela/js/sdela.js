@@ -27,38 +27,38 @@ jQuery(document).ready(function($) {
         }
     });
 
-    // $(".srs-filter-date-from input").datepicker({
-	// 	position: "bottom left",
-	// 	minDate: new Date(),
-	// 	startDate: new Date(),
-	// 	autoClose: true
-	// 	/*dateFormat: ' ',
-	// 	timepicker: true,
-	// 	classes: 'only-timepicker'*/
-	// });
-    //
-	// $(".srs-filter-date-to input").datepicker({
-	// 	position: "bottom right",
-	// 	minDate: new Date(),
-	// 	startDate: new Date(),
-	// 	autoClose: true
-	// 	/*dateFormat: ' ',
-	// 	timepicker: true,
-	// 	classes: 'only-timepicker'*/
-	// });
-    //
-	// $(".srs-ft-from input").clockpicker({
-	// 	align: "left",
-	// 	autoclose: true,
-	// 	twelvehour: false
-	// });
-    //
-	// $(".srs-ft-to input").clockpicker({
-	// 	align: "right",
-	// 	autoclose: true,
-	// 	twelvehour: false
-	// });
-    //
+    $(".srs-filter-date-from input").datepicker({
+        position: "bottom left",
+        minDate: new Date(),
+        startDate: new Date(),
+        autoClose: true
+        /*dateFormat: ' ',
+        timepicker: true,
+        classes: 'only-timepicker'*/
+    });
+
+    $(".srs-filter-date-to input").datepicker({
+        position: "bottom right",
+        minDate: new Date(),
+        startDate: new Date(),
+        autoClose: true
+        /*dateFormat: ' ',
+        timepicker: true,
+        classes: 'only-timepicker'*/
+    });
+
+	$(".srs-ft-from input").clockpicker({
+	 	align: "left",
+	 	autoclose: true,
+	 	twelvehour: false
+	});
+
+	$(".srs-ft-to input").clockpicker({
+	 	align: "right",
+	 	autoclose: true,
+	 	twelvehour: false
+	});
+
 	// $(".srs-filter-checks label").click(function(e) {
 	// 	e.preventDefault();
 	// 	if ($(this).hasClass("srs-fc-chekced")) {
