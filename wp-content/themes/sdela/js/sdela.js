@@ -59,21 +59,11 @@ jQuery(document).ready(function($) {
 	 	twelvehour: false
 	});
 
-	// $(".srs-filter-checks label").click(function(e) {
-	// 	e.preventDefault();
-	// 	if ($(this).hasClass("srs-fc-chekced")) {
-	// 		$(this).removeClass("srs-fc-chekced");
-	// 		$(this).find("input").attr("checked", false);
-	// 		$(this).find("input").checked = false;
-	// 		$(this).find("input").prop("checked", false);
-	// 	} else {
-	// 		$(this).addClass("srs-fc-chekced");
-	// 		$(this).find("input").attr("checked", "checked");
-	// 		$(this).find("input").checked = true;
-	// 		$(this).find("input").prop("checked", true);
-	// 	};
-	// });
-    //
+	$(".srs-filter-checks .control").click(function(e) {
+        $(this).parent().parent().find('.checked').removeClass('checked');
+		$(this).addClass("checked");
+	}).has('input:checked').addClass("checked");
+
 	// $(".srs-cb-o-more-prop-btn").click(function(e) {
 	// 	e.preventDefault();
 	// 	//$(".ds-options-container").removeClass("ds-options-container-active")

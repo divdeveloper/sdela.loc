@@ -3,6 +3,150 @@ ol, ul
   li
     list-style-type: none
 
+.w2dc-content .w2dc-form-control
+  font-family: "MuseoSansCyrl", sans-serif
+  font-weight: 500
+  font-size: 16px
+  padding: 0 40px 0 15px
+  border-radius: $input-border-radius
+  border: 1px solid $blue-border
+
+.w2dc-submit-section
+  display: -webkit-flex
+  display: -moz-flex
+  display: -ms-flex
+  display: -o-flex
+  display: flex
+  flex-direction: column
+  align-items: flex-start
+  justify-content: flex-end
+  position: relative
+  flex-grow: 1
+  label
+    display: -webkit-flex
+    display: -moz-flex
+    display: -ms-flex
+    display: -o-flex
+    display: flex
+    flex-direction: row
+    align-items: center
+    position: relative
+    margin-bottom: 10px
+    p
+      margin-right: 20px
+  input
+    display: block
+    position: relative
+    height: 40px
+
+.srs-filter-checks
+  display: block
+  position: relative
+  margin-top: 20px
+  ul
+    display: block
+    position: relative
+  li
+    display: inline-block
+    position: relative
+    list-style-type: none
+    margin-right: 10px
+    &:last-child
+      margin-right: 0
+  .control
+    padding: 0 42px
+    cursor: pointer
+    line-height: 40px
+    height: 40px
+    width: 200px
+    border-radius: $input-border-radius
+    background: #fcfcfc
+    font-weight: 500
+    margin-bottom: 0
+    transition: all .2s ease
+    input
+      position: absolute
+      z-index: -1
+      opacity: 0
+      &:disabled ~ .control__indicator
+        pointer-events: none
+        opacity: .6
+        background: #e6e6e6
+    .control__indicator:after
+      position: absolute
+      display: none
+      content: ''
+    input:checked ~ .control__indicator:after, &:hover input ~ .control__indicator:after
+      display: block
+  .control__indicator
+    position: absolute
+    top: 7px
+    left: 8px
+    width: 25px
+    height: 25px
+    background: #fff
+    border: 1px solid #fff
+  .control--radio .control__indicator
+    border-radius: 50%
+  .control--checkbox
+    .control__indicator:after
+      top: 4px
+      left: 8px
+      width: 3px
+      height: 8px
+      transform: rotate(45deg)
+      border: solid #fff
+      border-width: 0 2px 2px 0
+    input:disabled ~ .control__indicator:after
+      border-color: #7b7b7b
+  .control--radio
+    .control__indicator:after
+      top: 4px
+      left: 4px
+      width: 15px
+      height: 15px
+      border-radius: 50%
+      background: #999
+      border: 3px solid #fff
+    input:disabled ~ .control__indicator:after
+      background: #7b7b7b
+
+.srs-filter-check-order .control
+  border: 1px solid $order-color
+  &.checked
+    background-color: $order-color
+    color: #fff
+  .control__indicator
+    border-color: $order-color
+  &:hover input ~ .control__indicator
+    background: $order-color
+  input
+    &:focus ~ .control__indicator
+      background-color: $order-color
+    &:checked ~ .control__indicator
+      background-color: $order-color
+      border-color: #fff
+.srs-filter-check-service .control
+  border: 1px solid $service-color
+  &.checked
+    background-color: $service-color
+    color: #fff
+  .control__indicator
+    border-color: $service-color
+  &:hover input ~ .control__indicator
+    background: $service-color
+  input
+    &:focus ~ .control__indicator
+      background-color: $service-color
+    &:checked ~ .control__indicator
+      background-color: $service-color
+      border-color: #fff
+//.srs-fc-chekced
+//  &::before
+//    background-image: url("img/srs-fc-chekced.png")
+//  p
+//    color: #fff
+
 .select2-container .select2-selection--single
   height: 40px
 .select2-container--default .select2-selection--single .select2-selection__rendered
@@ -46,40 +190,6 @@ ol, ul
   .select2-selection__arrow b
     transform: translate(0, -50%) rotateX(180deg) !important
 
-.w2dc-submit-section
-  display: -webkit-flex
-  display: -moz-flex
-  display: -ms-flex
-  display: -o-flex
-  display: flex
-  flex-direction: column
-  align-items: flex-start
-  justify-content: flex-end
-  position: relative
-  flex-grow: 1
-  label
-    display: -webkit-flex
-    display: -moz-flex
-    display: -ms-flex
-    display: -o-flex
-    display: flex
-    flex-direction: row
-    align-items: center
-    position: relative
-    margin-bottom: 10px
-    p
-      margin-right: 20px
-  input
-    display: block
-    position: relative
-    height: 40px
-    font-family: "MuseoSansCyrl", sans-serif
-    font-weight: 500
-    font-size: 16px
-    padding: 0 40px 0 15px
-    border-radius: $input-border-radius
-    border: 1px solid $blue-border
-    text-align: center
 
 .srs-filter-date-container
   display: -webkit-flex

@@ -34,17 +34,16 @@
 		<?php endif; ?>
 
 		<div class="w2dc-submit-section w2dc-submit-section-title">
-			<h3 class="w2dc-submit-section-label"><?php _e('Listing title', 'W2DC'); ?><span class="w2dc-red-asterisk">*</span></h3>
 			<div class="w2dc-submit-section-inside">
-				<input type="text" name="post_title" style="width: 100%" class="w2dc-form-control" value="<?php if ($w2dc_instance->current_listing->post->post_title != __('Auto Draft', 'W2DC')) echo esc_attr($w2dc_instance->current_listing->post->post_title); ?>" />
+				<?php echo sdela_select_job_type($w2dc_instance->content_fields->getContentFieldBySlug('job-type')); ?>
+				<input type="text" name="post_title" class="w2dc-form-control" placeholder="<?php _e('Название', 'W2DC'); ?>" value="<?php if ($w2dc_instance->current_listing->post->post_title != __('Auto Draft', 'W2DC')) echo esc_attr($w2dc_instance->current_listing->post->post_title); ?>" />
 			</div>
 		</div>
 
 		<?php if (post_type_supports(W2DC_POST_TYPE, 'editor')): ?>
 		<div class="w2dc-submit-section w2dc-submit-section-description">
-			<h3 class="w2dc-submit-section-label"><?php echo $w2dc_instance->content_fields->getContentFieldBySlug('content')->name; ?><?php if ($w2dc_instance->content_fields->getContentFieldBySlug('content')->is_required): ?><span class="w2dc-red-asterisk">*</span><?php endif; ?></h3>
 			<div class="w2dc-submit-section-inside">
-				<?php wp_editor($w2dc_instance->current_listing->post->post_content, 'post_content', array('media_buttons' => false, 'editor_class' => 'w2dc-editor-class')); ?>
+                <textarea name="post_excerpt" class="w2dc-editor-class w2dc-form-control" placeholder="<?php echo $w2dc_instance->content_fields->getContentFieldBySlug('content')->name; ?>" rows="4"><?php echo esc_textarea($w2dc_instance->current_listing->post->post_content)?></textarea>
 			</div>
 			<?php if ($w2dc_instance->content_fields->getContentFieldBySlug('content')->description): ?><p class="description"><?php echo $w2dc_instance->content_fields->getContentFieldBySlug('content')->description; ?></p><?php endif; ?>
 		</div>
@@ -52,9 +51,8 @@
 
 		<?php if (post_type_supports(W2DC_POST_TYPE, 'excerpt')): ?>
 		<div class="w2dc-submit-section w2dc-submit-section-excerpt">
-			<h3 class="w2dc-submit-section-label"><?php echo $w2dc_instance->content_fields->getContentFieldBySlug('summary')->name; ?><?php if ($w2dc_instance->content_fields->getContentFieldBySlug('summary')->is_required): ?><span class="w2dc-red-asterisk">*</span><?php endif; ?></h3>
 			<div class="w2dc-submit-section-inside">
-				<textarea name="post_excerpt" class="w2dc-editor-class w2dc-form-control" rows="4"><?php echo esc_textarea($w2dc_instance->current_listing->post->post_excerpt)?></textarea>
+				<textarea name="post_excerpt" class="w2dc-editor-class w2dc-form-control" placeholder="<?php echo $w2dc_instance->content_fields->getContentFieldBySlug('summary')->name; ?>" rows="4"><?php echo esc_textarea($w2dc_instance->current_listing->post->post_excerpt)?></textarea>
 			</div>
 			<?php if ($w2dc_instance->content_fields->getContentFieldBySlug('summary')->description): ?><p class="description"><?php echo $w2dc_instance->content_fields->getContentFieldBySlug('summary')->description; ?></p><?php endif; ?>
 		</div>
@@ -62,7 +60,29 @@
 		
 		<?php do_action('w2dc_create_listing_metaboxes_pre', $w2dc_instance->current_listing); ?>
 
-		<?php if (!$w2dc_instance->current_listing->level->eternal_active_period && (get_option('w2dc_change_expiration_date') || current_user_can('manage_options'))): ?>
+		<?php if ($w2dc_instance->current_listing->level->categories_number > 0 || $w2dc_instance->current_listing->level->unlimited_categories): ?>
+            <div class="w2dc-submit-section w2dc-submit-section-categories">
+                <div class="w2dc-submit-section-inside">
+					<?php echo sdela_select_categories(
+						$w2dc_instance->content_fields->getContentFieldBySlug('categories_list'),
+						$w2dc_instance->content_fields->getContentFieldBySlug('subcategory'),
+						$w2dc_instance->current_listing->post->ID
+					); ?>
+                </div>
+            </div>
+		<?php endif; ?>
+
+		<?php if (get_option('w2dc_enable_tags')): ?>
+            <div class="w2dc-submit-section w2dc-submit-section-tags">
+                <h3 class="w2dc-submit-section-label"><?php echo $w2dc_instance->content_fields->getContentFieldBySlug('listing_tags')->name; ?> <i>(<?php _e('select existing or type new', 'W2DC'); ?>)</i></h3>
+                <div class="w2dc-submit-section-inside">
+					<?php w2dc_tags_selectbox($w2dc_instance->current_listing->post->ID); ?>
+					<?php if ($w2dc_instance->content_fields->getContentFieldBySlug('listing_tags')->description): ?><p class="description"><?php echo $w2dc_instance->content_fields->getContentFieldBySlug('listing_tags')->description; ?></p><?php endif; ?>
+                </div>
+            </div>
+		<?php endif; ?>
+
+        <?php if (!$w2dc_instance->current_listing->level->eternal_active_period && (get_option('w2dc_change_expiration_date') || current_user_can('manage_options'))): ?>
 		<div class="w2dc-submit-section w2dc-submit-section-expiration-date">
 			<h3 class="w2dc-submit-section-label"><?php _e('Listing expiration date', 'W2DC'); ?></h3>
 			<div class="w2dc-submit-section-inside">
@@ -89,26 +109,8 @@
 		</div>
 		<?php endif; ?>
 	
-		<?php if ($w2dc_instance->current_listing->level->categories_number > 0 || $w2dc_instance->current_listing->level->unlimited_categories): ?>
-		<div class="w2dc-submit-section w2dc-submit-section-categories">
-			<div class="w2dc-submit-section-inside">
-                <?php echo sdela_select_categories($w2dc_instance); ?>
-			</div>
-		</div>
-		<?php endif; ?>
-		
-		<?php if (get_option('w2dc_enable_tags')): ?>
-		<div class="w2dc-submit-section w2dc-submit-section-tags">
-			<h3 class="w2dc-submit-section-label"><?php echo $w2dc_instance->content_fields->getContentFieldBySlug('listing_tags')->name; ?> <i>(<?php _e('select existing or type new', 'W2DC'); ?>)</i></h3>
-			<div class="w2dc-submit-section-inside">
-				<?php w2dc_tags_selectbox($w2dc_instance->current_listing->post->ID); ?>
-				<?php if ($w2dc_instance->content_fields->getContentFieldBySlug('listing_tags')->description): ?><p class="description"><?php echo $w2dc_instance->content_fields->getContentFieldBySlug('listing_tags')->description; ?></p><?php endif; ?>
-			</div>
-		</div>
-		<?php endif; ?>
-	
 		<?php if ($w2dc_instance->content_fields->isNotCoreContentFields()): ?>
-		<div class="w2dc-submit-section w2dc-submit-section-conetnt-fields">
+		<div class="w2dc-submit-section">
 			<div class="w2dc-submit-section-inside">
                 <?php echo sdela_select_datetime(
                         $w2dc_instance->content_fields->getContentFieldBySlug('begin'),
