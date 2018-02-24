@@ -3,14 +3,31 @@
 .w2dc-content > form > .row
   margin-bottom: 2em
 
-.w2dc-content .w2dc-form-control
-  font-family: "MuseoSansCyrl", sans-serif
-  font-weight: 500
-  font-size: 16px
-  padding: 0 40px 0 15px
-  border-radius: $input-border-radius
-  border: 1px solid $blue-border
-  height: $input-height
+.w2dc-content
+  font-family: museo_sans_cyrl300, "Helvetica Neue", Helvetica, Arial, sans-serif
+  .form-control
+    font-weight: 500
+    font-size: 16px
+    padding: 0 40px 0 15px
+    border-radius: $input-border-radius
+    border: 1px solid $blue-border
+    background: #fff
+    height: $input-height
+    &::placeholder
+      color: #222
+  textarea.form-control
+    padding-top: 0.5em
+    padding-bottom: 0.5em
+    height: 15em
+  label
+    line-height: $input-height
+    font-size: 16px
+    font-weight: normal
+  .btn
+    background: $blue-border
+    color: #fff
+    height: $input-height
+    border-radius: $input-border-radius
 
 .w2dc-submit-section-title input[type="text"]
   width: 100%
@@ -107,14 +124,14 @@
 
 .w2dc-submit-section-categories .select2-container
   width: 100% !important
-  .select2-selection--single
-    height: $input-height
 .select2-container--default .select2-selection--single
+  height: $input-height
   border-radius: $input-border-radius
   border: 1px solid $blue-border
+  outline: none
   .select2-selection__rendered
     line-height: $input-height
-    outline: none
+    font-size: 16px
   .select2-selection__arrow
     width: 16px
     right: 10px
@@ -138,6 +155,9 @@
     transition: all .2s ease
   .select2-selection__clear
     display: none
+  .select2-selection__placeholder
+    color: #222
+    font-size: 16px
 .select2-container--open
   .select2-selection__arrow b
     transform: translate(0, -50%) rotateX(180deg) !important
@@ -149,10 +169,10 @@
   padding-right: 1em
   label
     padding-right: 1em
-    line-height: $input-height
-  .w2dc-form-control
+  .form-control
     float: right
     padding-left: 8px
+    font-size: 18px
     width: 140px
 .srs-filter-date-btn
   font-style: normal
@@ -174,7 +194,7 @@
   display: none
 .datepicker--day-name
   color: $green-link !important
-.srs-filter-time .w2dc-form-control
+.srs-filter-time .form-control
   width: 100px
 .popover
   > .arrow
@@ -196,7 +216,12 @@
   background-size: 22px 22px
   background-repeat: no-repeat
 
+#w2dc-upload-functions
+  margin: 0 0 -1em
+.w2dc-upload-option .form-control::placeholder
+  color: #999
 .w2dc-content .submit
   text-align: center
+  margin-bottom: 3em
 #submit
   border-radius: 0

@@ -8,13 +8,13 @@ jQuery(document).ready(function($) {
 	});
 */
 
-	$(".select2").select2({
+	$(".w2dc-field-input-select").select2({
         allowClear: true,
         language: "ru",
 		minimumResultsForSearch: Infinity
 	});
     var $w2dcCategory = $('#w2dc-category');
-	$(".select2-children").select2({
+	$("#w2dc-field-input-subcategory").select2({
         allowClear: true,
         language: "ru",
         minimumResultsForSearch: Infinity,

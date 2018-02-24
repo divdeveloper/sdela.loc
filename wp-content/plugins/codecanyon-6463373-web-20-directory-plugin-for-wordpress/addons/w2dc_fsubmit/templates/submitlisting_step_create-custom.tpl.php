@@ -25,10 +25,10 @@
 			<h3 class="w2dc-submit-section-label"><?php _e('User info', 'W2DC'); ?></h3>
 			<div class="col-xs-12">
 				<label class="w2dc-fsubmit-contact"><?php _e('Your Name', 'W2DC'); ?><?php if (get_option('w2dc_fsubmit_login_mode') == 2): ?><span class="w2dc-red-asterisk">*</span><?php endif; ?></label>
-				<input type="text" name="w2dc_user_contact_name" value="<?php echo esc_attr($frontend_controller->w2dc_user_contact_name); ?>" class="w2dc-form-control" style="width: 100%;" />
+				<input type="text" name="w2dc_user_contact_name" value="<?php echo esc_attr($frontend_controller->w2dc_user_contact_name); ?>" class="form-control" style="width: 100%;" />
 
 				<label class="w2dc-fsubmit-contact"><?php _e('Your Email', 'W2DC'); ?><?php if (get_option('w2dc_fsubmit_login_mode') == 2): ?><span class="w2dc-red-asterisk">*</span><?php endif; ?></label>
-				<input type="text" name="w2dc_user_contact_email" value="<?php echo esc_attr($frontend_controller->w2dc_user_contact_email); ?>" class="w2dc-form-control" style="width: 100%;" />
+				<input type="text" name="w2dc_user_contact_email" value="<?php echo esc_attr($frontend_controller->w2dc_user_contact_email); ?>" class="form-control" style="width: 100%;" />
 			</div>
 		</div>
 		<?php endif; ?>
@@ -36,14 +36,14 @@
 		<div class="w2dc-submit-section-title row ">
 				<?php echo sdela_select_job_type($w2dc_instance->content_fields->getContentFieldBySlug('job-type')); ?>
             <div class="col-md-7 col-xs-12">
-				<input type="text" name="post_title" class="w2dc-form-control" placeholder="<?php _e('Название', 'W2DC'); ?>" value="<?php if ($w2dc_instance->current_listing->post->post_title != __('Auto Draft', 'W2DC')) echo esc_attr($w2dc_instance->current_listing->post->post_title); ?>" />
+				<input type="text" name="post_title" class="form-control" placeholder="<?php _e('Название', 'W2DC'); ?>" value="<?php if ($w2dc_instance->current_listing->post->post_title != __('Auto Draft', 'W2DC')) echo esc_attr($w2dc_instance->current_listing->post->post_title); ?>" />
 			</div>
 		</div>
 
 		<?php if (post_type_supports(W2DC_POST_TYPE, 'editor')): ?>
 		<div class="w2dc-submit-section-description row">
 			<div class="col-xs-12">
-                <textarea name="post_excerpt" class="w2dc-editor-class w2dc-form-control" placeholder="<?php echo $w2dc_instance->content_fields->getContentFieldBySlug('content')->name; ?>" rows="4"><?php echo esc_textarea($w2dc_instance->current_listing->post->post_content)?></textarea>
+                <textarea name="post_excerpt" class="w2dc-editor-class form-control" placeholder="<?php echo $w2dc_instance->content_fields->getContentFieldBySlug('content')->description ? $w2dc_instance->content_fields->getContentFieldBySlug('content')->description : $w2dc_instance->content_fields->getContentFieldBySlug('content')->name; ?>" rows="7"><?php echo esc_textarea($w2dc_instance->current_listing->post->post_content)?></textarea>
 			</div>
 		</div>
 		<?php endif; ?>
@@ -51,7 +51,7 @@
 		<?php if (post_type_supports(W2DC_POST_TYPE, 'excerpt')): ?>
 		<div class="w2dc-submit-section-excerpt row">
 			<div class="col-xs-12">
-				<textarea name="post_excerpt" class="w2dc-editor-class w2dc-form-control" placeholder="<?php echo $w2dc_instance->content_fields->getContentFieldBySlug('summary')->name; ?>" rows="4"><?php echo esc_textarea($w2dc_instance->current_listing->post->post_excerpt)?></textarea>
+				<textarea name="post_excerpt" class="w2dc-editor-class form-control" placeholder="<?php echo $w2dc_instance->content_fields->getContentFieldBySlug('summary')->description ? $w2dc_instance->content_fields->getContentFieldBySlug('summary')->description : $w2dc_instance->content_fields->getContentFieldBySlug('summary')->name; ?>" rows="4"><?php echo esc_textarea($w2dc_instance->current_listing->post->post_excerpt)?></textarea>
 			</div>
 		</div>
 		<?php endif; ?>

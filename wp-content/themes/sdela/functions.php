@@ -327,7 +327,7 @@ function sdela_select_categories($category_field, $subcategory_field, $post_id) 
 			$checked_categories_ids[] = $term->term_id;
 
 		$html .= '<div class="col-md-5 col-xs-12">';
-		$html .= '<select id="w2dc-category" class="select2" data-placeholder="'.$placeholder.'" name="tax_input[' . W2DC_CATEGORIES_TAX . '][]">';
+		$html .= '<select id="w2dc-category" class="w2dc-field-input-select" data-placeholder="'.$placeholder.'" name="tax_input[' . W2DC_CATEGORIES_TAX . '][]">';
 		$html .= '<option value=""></option>';
 		$subcat_options = array('<option value=""></option>');
 		foreach ($terms AS $term) {
@@ -345,7 +345,7 @@ function sdela_select_categories($category_field, $subcategory_field, $post_id) 
 		$html .= '</select>';
 		$html .= '</div><div class="col-md-5 col-xs-12">';
 		$placeholder = $subcategory_field->description ? $subcategory_field->description : $subcategory_field->name;
-		$html .= '<select id="w2dc-subcategory" class="select2-children" data-placeholder="'.$placeholder.'" name="tax_input[' . W2DC_CATEGORIES_TAX . '][]">';
+		$html .= '<select id="w2dc-field-input-subcategory" data-placeholder="'.$placeholder.'" name="tax_input[' . W2DC_CATEGORIES_TAX . '][]">';
 		$html .= implode($subcat_options);
 		$html .= '</select>';
 		$html .= '</div>';
@@ -365,24 +365,24 @@ function sdela_select_datetime($field_start, $field_finish = null) {
 	<div class="col-md-6 col-xs-12">
 	    <div class="srs-filter-date srs-filter-date-from">
 	        <label>$field_start->name с </label>
-			<input type="text" class="w2dc-form-control">
+			<input type="text" class="form-control">
 			<i class="srs-filter-date-btn"></i>
 		</div>
 	    <div class="srs-filter-date srs-filter-date-to">
     		<label> по </label>
-		    <input type="text" class="w2dc-form-control">
+		    <input type="text" class="form-control">
 		    <i class="srs-filter-date-btn"></i>
 		</div>
 	</div>	
 	<div class="col-md-6 col-xs-12">
 	    <div class="srs-filter-time srs-ft-from">
 		    <label>Время от </label>
-			<input type="text" class="w2dc-form-control">
+			<input type="text" class="form-control">
 			<i class="srs-filter-time-btn"></i>
 		</div>
 	    <div class="srs-filter-time srs-ft-to">
     	    <label> до </label>
-		    <input type="text" class="w2dc-form-control">
+		    <input type="text" class="form-control">
 	        <i class="srs-filter-time-btn"></i>
 		</div>
 	</div>
