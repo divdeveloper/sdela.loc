@@ -303,16 +303,16 @@ add_action( 'pre_get_posts', 'bal_pre_get_posts' );
 function sdela_select_job_type($job_type_field) {
     $html = '';
     if (count($job_type_field->selection_items)) {
-        $html .= '<div class="srs-filter-checks"><ul>';
+        $html .= '<div class="srs-filter-checks col-md-5 col-xs-12">';
         foreach ($job_type_field->selection_items as $key=>$item) {
-            $html .= '<li class="srs-filter-check-'.($key==1?'order':'service').'">';
+            $html .= '<div class="col-md-6 col-xs-12 srs-filter-check-'.($key==1?'order':'service').'">';
             $html .= '<label class="control control--radio">'.$item;
             $html .= '<input type="radio" name="w2dc-field-input-'.$job_type_field->id.'" value="'.esc_attr($key).'" '.checked($job_type_field->value, $key, true).' />';
             $html .= '<div class="control__indicator"></div>';
             $html .= '</label>';
-            $html .= '</li>';
+            $html .= '</div>';
         }
-        $html .= '</ul></div>';
+        $html .= '</div>';
     }
     return $html;
 }
@@ -326,6 +326,7 @@ function sdela_select_categories($category_field, $subcategory_field, $post_id) 
 		foreach ($checked_categories AS $term)
 			$checked_categories_ids[] = $term->term_id;
 
+		$html .= '<div class="col-md-5 col-xs-12">';
 		$html .= '<select id="w2dc-category" class="select2" data-placeholder="'.$placeholder.'" name="tax_input[' . W2DC_CATEGORIES_TAX . '][]">';
 		$html .= '<option value=""></option>';
 		$subcat_options = array('<option value=""></option>');
@@ -342,10 +343,12 @@ function sdela_select_categories($category_field, $subcategory_field, $post_id) 
 			$html .= '<option ' . $selected . ' value="' . $term->term_id . '" data-children="'.json_encode($subcategories).'">' . $term->name . '</option>';
 		}
 		$html .= '</select>';
+		$html .= '</div><div class="col-md-5 col-xs-12">';
 		$placeholder = $subcategory_field->description ? $subcategory_field->description : $subcategory_field->name;
 		$html .= '<select id="w2dc-subcategory" class="select2-children" data-placeholder="'.$placeholder.'" name="tax_input[' . W2DC_CATEGORIES_TAX . '][]">';
 		$html .= implode($subcat_options);
 		$html .= '</select>';
+		$html .= '</div>';
 	}
     return $html;
 }
@@ -359,38 +362,30 @@ function sdela_select_datetime($field_start, $field_finish = null) {
 	wp_enqueue_script( 'clockpicker', get_template_directory_uri() . '/lib/clockpicker/bootstrap-clockpicker.js', array('jquery'), null, true);
 	wp_enqueue_style( 'clockpicker', get_template_directory_uri() . '/lib/clockpicker/bootstrap-clockpicker.css');
     $html = <<<DATETIME
-	<ul class="srs-filter-date-container">
-	    <li>
-		    <label class="srs-filter-date srs-filter-date-from">
-		        <p>$field_start->name с </p>
-				<input type="text" class="w2dc-form-control">
-				<i class="srs-filter-date-btn"></i>
-			</label>
-		</li>
-		<li>
-			<label class="srs-filter-date srs-filter-date-to">
-			    <p> по </p>
-			    <input type="text" class="w2dc-form-control">
-			    <i class="srs-filter-date-btn"></i>
-			</label>
-		</li>
-	</ul>
-	<ul class="srs-filter-time">
-		<li>
-			<label class="srs-ft-from">
-				<p>Время от</p>
-				<input type="text" class="w2dc-form-control">
-				<i class="srs-filter-time-btn"></i>
-			</label>
-		</li>
-		<li>
-		    <label class="srs-ft-to">
-			    <p>	до </p>
-			    <input type="text" class="w2dc-form-control">
-		        <i class="srs-filter-time-btn"></i>
-			</label>
-		</li>
-	</ul>
+	<div class="col-md-6 col-xs-12">
+	    <div class="srs-filter-date srs-filter-date-from">
+	        <label>$field_start->name с </label>
+			<input type="text" class="w2dc-form-control">
+			<i class="srs-filter-date-btn"></i>
+		</div>
+	    <div class="srs-filter-date srs-filter-date-to">
+    		<label> по </label>
+		    <input type="text" class="w2dc-form-control">
+		    <i class="srs-filter-date-btn"></i>
+		</div>
+	</div>	
+	<div class="col-md-6 col-xs-12">
+	    <div class="srs-filter-time srs-ft-from">
+		    <label>Время от </label>
+			<input type="text" class="w2dc-form-control">
+			<i class="srs-filter-time-btn"></i>
+		</div>
+	    <div class="srs-filter-time srs-ft-to">
+    	    <label> до </label>
+		    <input type="text" class="w2dc-form-control">
+	        <i class="srs-filter-time-btn"></i>
+		</div>
+	</div>
 DATETIME;
     return $html;
 }
