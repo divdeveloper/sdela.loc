@@ -105,10 +105,10 @@
 
 		<?php if ($w2dc_instance->content_fields->getContentFieldBySlug('price')): ?>
             <div class="w2dc-submit-section-price row">
-                <div class="col-md-5 col-xs-12">
+                <div class="col-md-5 col-xs-12 flex">
 					<?php echo $w2dc_instance->content_fields->getContentFieldBySlug('price')->renderInput(); ?>
                 </div>
-                <div class="col-md-5 col-xs-12">
+                <div class="col-md-4 col-xs-12 flex">
 					<?php echo $w2dc_instance->content_fields->getContentFieldBySlug('Price_typ')->renderInput(); ?>
                 </div>
             </div>

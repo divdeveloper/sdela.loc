@@ -555,9 +555,6 @@ p.distance {
 .page-id-119 {
   background: #fff; }
 
-.w2dc-content > form > .row {
-  margin-bottom: 2em; }
-
 .w2dc-content {
   font-family: museo_sans_cyrl300, "Helvetica Neue", Helvetica, Arial, sans-serif; }
   .w2dc-content .form-control {
@@ -567,25 +564,39 @@ p.distance {
     border-radius: 4px;
     border: 1px solid #0076D5;
     background: #fff;
-    height: 40px; }
+    height: 40px;
+    margin-bottom: 1em; }
     .w2dc-content .form-control::placeholder {
       color: #222; }
   .w2dc-content textarea.form-control {
     padding-top: 0.5em;
     padding-bottom: 0.5em;
     height: 15em; }
-  .w2dc-content label {
+  .w2dc-content label, .w2dc-content p {
     line-height: 40px;
     font-size: 16px;
-    font-weight: normal; }
+    font-weight: normal;
+    min-width: 1.1em; }
   .w2dc-content .btn {
     background: #0076D5;
     color: #fff;
     height: 40px;
     border-radius: 4px; }
+  .w2dc-content .flex {
+    display: flex;
+    flex-direction: row; }
+    .w2dc-content .flex label {
+      white-space: nowrap;
+      margin-right: 0.8em; }
 
 .w2dc-submit-section-title input[type="text"] {
   width: 100%; }
+
+.srs-filter-checks {
+  flex-wrap: wrap; }
+  @media screen and (min-width: 576px) {
+    .srs-filter-checks {
+      flex-wrap: nowrap; } }
 
 .srs-filter-checks .control {
   position: relative;
@@ -597,8 +608,12 @@ p.distance {
   border-radius: 4px;
   background: #fcfcfc;
   font-weight: 500;
-  margin-bottom: 0;
+  margin-bottom: 1em;
+  margin-left: 0.9em;
   transition: all 0.2s ease; }
+  @media screen and (min-width: 576px) {
+    .srs-filter-checks .control {
+      margin-left: 0; } }
   .srs-filter-checks .control input {
     position: absolute;
     z-index: -1;
@@ -644,38 +659,42 @@ p.distance {
   .srs-filter-checks .control.control--radio input:disabled ~ .control__indicator:after {
     background: #7b7b7b; }
 
-.srs-filter-check-order .control {
+.srs-filter-check-order.control {
   border: 1px solid #7f33c1; }
-  .srs-filter-check-order .control.checked {
+  .srs-filter-check-order.control.checked {
     background-color: #7f33c1;
     color: #fff; }
-  .srs-filter-check-order .control .control__indicator {
+  .srs-filter-check-order.control .control__indicator {
     border-color: #7f33c1; }
-  .srs-filter-check-order .control:hover input ~ .control__indicator {
+  .srs-filter-check-order.control:hover input ~ .control__indicator {
     background: #7f33c1; }
-  .srs-filter-check-order .control input:focus ~ .control__indicator {
+  .srs-filter-check-order.control input:focus ~ .control__indicator {
     background-color: #7f33c1; }
-  .srs-filter-check-order .control input:checked ~ .control__indicator {
+  .srs-filter-check-order.control input:checked ~ .control__indicator {
     background-color: #7f33c1;
     border-color: #fff; }
 
-.srs-filter-check-service .control {
+.srs-filter-check-service.control {
   border: 1px solid #d06119; }
-  .srs-filter-check-service .control.checked {
+  @media screen and (min-width: 576px) {
+    .srs-filter-check-service.control {
+      margin-right: 0 !important; } }
+  .srs-filter-check-service.control.checked {
     background-color: #d06119;
     color: #fff; }
-  .srs-filter-check-service .control .control__indicator {
+  .srs-filter-check-service.control .control__indicator {
     border-color: #d06119; }
-  .srs-filter-check-service .control:hover input ~ .control__indicator {
+  .srs-filter-check-service.control:hover input ~ .control__indicator {
     background: #d06119; }
-  .srs-filter-check-service .control input:focus ~ .control__indicator {
+  .srs-filter-check-service.control input:focus ~ .control__indicator {
     background-color: #d06119; }
-  .srs-filter-check-service .control input:checked ~ .control__indicator {
+  .srs-filter-check-service.control input:checked ~ .control__indicator {
     background-color: #d06119;
     border-color: #fff; }
 
-.w2dc-submit-section-categories .select2-container {
-  width: 100% !important; }
+.select2-container {
+  width: 100% !important;
+  margin-bottom: 1em; }
 
 .select2-container--default .select2-selection--single {
   height: 40px;
@@ -715,14 +734,27 @@ p.distance {
 .select2-container--open .select2-selection__arrow b {
   transform: translate(0, -50%) rotateX(180deg) !important; }
 
+.w2dc-submit-section-price label {
+  min-width: 9em;
+  text-align: right;
+  min-width: auto; }
+
+@media screen and (min-width: 576px) {
+  .w2dc-submit-section-date > div {
+    display: flex; } }
+.w2dc-submit-section-date > div:last-child p {
+  margin-top: -1em; }
+  @media screen and (min-width: 576px) {
+    .w2dc-submit-section-date > div:last-child p {
+      margin-top: 0; } }
+.w2dc-submit-section-date p {
+  margin-bottom: 0;
+  margin-right: 0.8em; }
+
 .srs-filter-date, .srs-filter-time {
   position: relative;
-  float: left;
   padding-right: 1em; }
-  .srs-filter-date label, .srs-filter-time label {
-    padding-right: 1em; }
   .srs-filter-date .form-control, .srs-filter-time .form-control {
-    float: right;
     padding-left: 8px;
     font-size: 18px;
     width: 140px; }
@@ -731,7 +763,7 @@ p.distance {
   font-style: normal;
   display: block;
   position: absolute;
-  top: -4px;
+  top: -1.2em;
   bottom: 0;
   right: 1em;
   background-color: transparent;
@@ -751,20 +783,20 @@ p.distance {
 .datepicker--day-name {
   color: #669933 !important; }
 
-.srs-filter-time .form-control {
-  width: 100px; }
-
+@media screen and (min-width: 576px) {
+  .srs-filter-time .form-control {
+    width: 100px; } }
 .popover > .arrow {
   display: none !important; }
 
 .popover.bottom {
-  margin-top: 0; }
+  margin-top: 2px; }
 
 .srs-filter-time-btn {
   font-style: normal;
   display: block;
   position: absolute;
-  top: -4px;
+  top: -1.2em;
   bottom: 0;
   right: 1em;
   background-color: transparent;
@@ -775,11 +807,16 @@ p.distance {
   background-size: 22px 22px;
   background-repeat: no-repeat; }
 
+#w2dc-upload-wrapper {
+  margin-bottom: 40px; }
+
 #w2dc-upload-functions {
   margin: 0 0 -1em; }
 
-.w2dc-upload-option .form-control::placeholder {
-  color: #999; }
+.w2dc-upload-option .form-control {
+  margin-bottom: 0; }
+  .w2dc-upload-option .form-control::placeholder {
+    color: #999; }
 
 .w2dc-content .submit {
   text-align: center;

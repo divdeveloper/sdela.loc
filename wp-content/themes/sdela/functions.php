@@ -303,14 +303,14 @@ add_action( 'pre_get_posts', 'bal_pre_get_posts' );
 function sdela_select_job_type($job_type_field) {
     $html = '';
     if (count($job_type_field->selection_items)) {
-        $html .= '<div class="srs-filter-checks col-md-5 col-xs-12">';
+        $html .= '<div class="srs-filter-checks col-md-5 col-xs-12 flex">';
         foreach ($job_type_field->selection_items as $key=>$item) {
-            $html .= '<div class="col-md-6 col-xs-12 srs-filter-check-'.($key==1?'order':'service').'">';
-            $html .= '<label class="control control--radio">'.$item;
+            //$html .= '<div class="col-md-6 col-xs-12 srs-filter-check-'.($key==1?'order':'service').'">';
+            $html .= '<label class="control control--radio srs-filter-check-'.($key==1?'order':'service').'">'.$item;
             $html .= '<input type="radio" name="w2dc-field-input-'.$job_type_field->id.'" value="'.esc_attr($key).'" '.checked($job_type_field->value, $key, true).' />';
             $html .= '<div class="control__indicator"></div>';
             $html .= '</label>';
-            $html .= '</div>';
+            //$html .= '</div>';
         }
         $html .= '</div>';
     }
@@ -389,33 +389,39 @@ function sdela_select_datetime($field_start, $field_end) {
 	}
     $html = <<<DATETIME
 	<div class="col-md-6 col-xs-12">
-	    <div class="srs-filter-date srs-filter-date-from">
-	        <label>$field_start->name с </label>
+	    <p>$field_start->name</p>
+	    <div class="flex">
+	    <div class="srs-filter-date srs-filter-date-from flex">
+	        <label> с </label>
 			<input type="text" class="form-control" value="$start_date_str"/>
 			<i class="srs-filter-date-btn"></i>
 			<input type="hidden" name="w2dc-field-input-$field_start->id" value="$start_date">
 		</div>
-	    <div class="srs-filter-date srs-filter-date-to">
+	    <div class="srs-filter-date srs-filter-date-to flex">
     		<label> по </label>
 		    <input type="text" class="form-control" value="$end_date_str">
 		    <i class="srs-filter-date-btn"></i>
 			<input type="hidden" name="w2dc-field-input-$field_end->id" value="$end_date">
 		</div>
+		</div>
 	</div>	
 	<div class="col-md-6 col-xs-12">
-	    <div class="srs-filter-time srs-ft-from">
-		    <label>Время от </label>
+	    <p>Время</p>
+	    <div class="flex">
+	    <div class="srs-filter-time srs-ft-from flex">
+		    <label> от </label>
 			<input type="text" class="form-control" value="$start_hour:$start_min">
 			<i class="srs-filter-time-btn"></i>
 			<input type="hidden" name="w2dc-field-input-hour_$field_start->id" value="$start_hour">
 			<input type="hidden" name="w2dc-field-input-minute_$field_start->id" value="$start_min">
 		</div>
-	    <div class="srs-filter-time srs-ft-to">
+	    <div class="srs-filter-time srs-ft-to flex">
     	    <label> до </label>
 		    <input type="text" class="form-control" value="$end_hour:$end_min">
 	        <i class="srs-filter-time-btn"></i>
 			<input type="hidden" name="w2dc-field-input-hour_$field_end->id" value="$end_hour">
 			<input type="hidden" name="w2dc-field-input-minute_$field_end->id" value="$end_min">
+		</div>
 		</div>
 	</div>
 DATETIME;

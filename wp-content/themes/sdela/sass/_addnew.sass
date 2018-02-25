@@ -1,7 +1,5 @@
 .page-id-119
   background: #fff
-.w2dc-content > form > .row
-  margin-bottom: 2em
 
 .w2dc-content
   font-family: museo_sans_cyrl300, "Helvetica Neue", Helvetica, Arial, sans-serif
@@ -13,25 +11,37 @@
     border: 1px solid $blue-border
     background: #fff
     height: $input-height
+    margin-bottom: $vertical-margin
     &::placeholder
       color: #222
   textarea.form-control
     padding-top: 0.5em
     padding-bottom: 0.5em
     height: 15em
-  label
+  label, p
     line-height: $input-height
     font-size: 16px
     font-weight: normal
+    min-width: 1.1em
   .btn
     background: $blue-border
     color: #fff
     height: $input-height
     border-radius: $input-border-radius
+  .flex
+    display: flex
+    flex-direction: row
+    label
+      white-space: nowrap
+      margin-right: 0.8em
 
 .w2dc-submit-section-title input[type="text"]
   width: 100%
 
+.srs-filter-checks
+  flex-wrap: wrap
+  @media screen and (min-width: $mobile_breakpoint)
+    flex-wrap: nowrap
 .srs-filter-checks .control
   position: relative
   padding: 0 42px
@@ -42,8 +52,12 @@
   border-radius: $input-border-radius
   background: #fcfcfc
   font-weight: 500
-  margin-bottom: 0
+  margin-bottom: $vertical-margin
+  margin-left: $vertical-margin - 0.1em
   transition: all .2s ease
+  @media screen and (min-width: $mobile_breakpoint)
+    margin-left: 0
+
   input
     position: absolute
     z-index: -1
@@ -91,7 +105,7 @@
     input:disabled ~ .control__indicator:after
       background: #7b7b7b
 
-.srs-filter-check-order .control
+.srs-filter-check-order.control
   border: 1px solid $order-color
   &.checked
     background-color: $order-color
@@ -106,8 +120,10 @@
     &:checked ~ .control__indicator
       background-color: $order-color
       border-color: #fff
-.srs-filter-check-service .control
+.srs-filter-check-service.control
   border: 1px solid $service-color
+  @media screen and (min-width: $mobile_breakpoint)
+    margin-right: 0 !important
   &.checked
     background-color: $service-color
     color: #fff
@@ -122,8 +138,9 @@
       background-color: $service-color
       border-color: #fff
 
-.w2dc-submit-section-categories .select2-container
+.select2-container
   width: 100% !important
+  margin-bottom: $vertical-margin
 .select2-container--default .select2-selection--single
   height: $input-height
   border-radius: $input-border-radius
@@ -161,16 +178,27 @@
 .select2-container--open
   .select2-selection__arrow b
     transform: translate(0, -50%) rotateX(180deg) !important
+.w2dc-submit-section-price label
+  min-width: 9em
+  text-align: right
+  @media screen and (min-width: $mobile_breakpoint)
+  min-width: auto
 
-
+.w2dc-submit-section-date
+  & > div
+    @media screen and (min-width: $mobile_breakpoint)
+      display: flex
+    &:last-child p
+      margin-top: - $vertical-margin
+      @media screen and (min-width: $mobile_breakpoint)
+        margin-top: 0
+  p
+    margin-bottom: 0
+    margin-right: 0.8em
 .srs-filter-date, .srs-filter-time
   position: relative
-  float: left
   padding-right: 1em
-  label
-    padding-right: 1em
   .form-control
-    float: right
     padding-left: 8px
     font-size: 18px
     width: 140px
@@ -178,7 +206,7 @@
   font-style: normal
   display: block
   position: absolute
-  top: -4px
+  top: -$vertical-margin - 0.2em
   bottom: 0
   right: 1em
   background-color: transparent
@@ -194,18 +222,19 @@
   display: none
 .datepicker--day-name
   color: $green-link !important
-.srs-filter-time .form-control
-  width: 100px
+@media screen and (min-width: $mobile_breakpoint)
+  .srs-filter-time .form-control
+    width: 100px
 .popover
   > .arrow
     display: none !important
 .popover.bottom
-  margin-top: 0
+  margin-top: 2px
 .srs-filter-time-btn
   font-style: normal
   display: block
   position: absolute
-  top: -4px
+  top: -$vertical-margin - 0.2em
   bottom: 0
   right: 1em
   background-color: transparent
@@ -216,10 +245,14 @@
   background-size: 22px 22px
   background-repeat: no-repeat
 
+#w2dc-upload-wrapper
+  margin-bottom: $input-height
 #w2dc-upload-functions
   margin: 0 0 -1em
-.w2dc-upload-option .form-control::placeholder
-  color: #999
+.w2dc-upload-option .form-control
+  margin-bottom: 0
+  &::placeholder
+    color: #999
 .w2dc-content .submit
   text-align: center
   margin-bottom: 3em
