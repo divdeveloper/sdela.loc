@@ -7,8 +7,23 @@ jQuery(document).ready(function($) {
 		$(this).parent().addClass("top-nav-active");
 	});
 */
+    var $titleInput = $('input[name="post_title"]');
+    var $charCount = $('<span class="char-limit" /></span>');
+	var countChars = function(){
+        var maxLength = $titleInput.attr('maxlength');
+        var len = $titleInput.val().length;
+        if (len > 0)
+        	$charCount.addClass('active');
+        else
+        	$charCount.removeClass('active');
+        if(len > maxLength)
+            return false;
+        $charCount.text(len === 0 ? maxLength + ' знаков' : (maxLength-len)+' / '+maxLength);
+    };
+	countChars();
+    $titleInput.keyup(countChars).parent().append($charCount);
 
-	$(".w2dc-field-input-select").select2({
+    $(".w2dc-field-input-select").select2({
         allowClear: true,
         language: "ru",
 		minimumResultsForSearch: Infinity

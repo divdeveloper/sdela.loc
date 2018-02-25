@@ -591,6 +591,16 @@ p.distance {
 
 .w2dc-submit-section-title input[type="text"] {
   width: 100%; }
+  .w2dc-submit-section-title input[type="text"] ~ .char-limit {
+    position: absolute;
+    color: #999;
+    font-size: 16px;
+    line-height: 40px;
+    top: 0;
+    left: 7em; }
+  .w2dc-submit-section-title input[type="text"] ~ .char-limit.active, .w2dc-submit-section-title input[type="text"]:focus ~ .char-limit {
+    left: auto;
+    right: 25px; }
 
 .srs-filter-checks {
   flex-wrap: wrap; }

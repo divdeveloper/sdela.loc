@@ -37,6 +37,17 @@
 
 .w2dc-submit-section-title input[type="text"]
   width: 100%
+  & ~ .char-limit
+    position: absolute
+    color: #999
+    font-size: 16px
+    line-height: $input-height
+    top: 0
+    left: 7em
+    //transition: all .2s ease
+  & ~ .char-limit.active, &:focus ~ .char-limit
+    left: auto
+    right: 25px
 
 .srs-filter-checks
   flex-wrap: wrap
