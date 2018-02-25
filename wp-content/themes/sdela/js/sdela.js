@@ -27,36 +27,46 @@ jQuery(document).ready(function($) {
         }
     });
 
-    $(".srs-filter-date-from input").datepicker({
+	var $fromDate = $(".srs-filter-date-from input[type='hidden']");
+    $(".srs-filter-date-from input[type='text']").datepicker({
         position: "bottom left",
         minDate: new Date(),
-        startDate: new Date(),
-        autoClose: true
-        /*dateFormat: ' ',
-        timepicker: true,
-        classes: 'only-timepicker'*/
+        startDate: new Date($fromDate.val()?$fromDate.val():null),
+        autoClose: true,
+		onSelect: function(dateStr, dateObj) {
+        	$fromDate.val(dateObj.getTime()/1000);
+            $(".srs-filter-date-to input[type='text']")
+				.data('datepicker').update('minDate', dateObj);
+		}
     });
 
-    $(".srs-filter-date-to input").datepicker({
+    var $toDate = $(".srs-filter-date-to input[type='hidden']");
+    $(".srs-filter-date-to input[type='text']").datepicker({
         position: "bottom right",
         minDate: new Date(),
-        startDate: new Date(),
-        autoClose: true
-        /*dateFormat: ' ',
-        timepicker: true,
-        classes: 'only-timepicker'*/
+        startDate: new Date($toDate.val()?$toDate.val():null),
+        autoClose: true,
+        onSelect: function(dateStr, dateObj) {
+            $toDate.val(dateObj.getTime()/1000)
+        }
     });
 
 	$(".srs-ft-from input").clockpicker({
 	 	align: "left",
 	 	autoclose: true,
-	 	twelvehour: false
+	 	twelvehour: false,
+		default: 'now',
+        afterDone: function (e, a) {
+			console.log(e);
+			console.log(a)
+        }
 	});
 
 	$(".srs-ft-to input").clockpicker({
 	 	align: "right",
 	 	autoclose: true,
-	 	twelvehour: false
+	 	twelvehour: false,
+		fromnow: 3600000
 	});
 
 	$(".srs-filter-checks .control").click(function(e) {

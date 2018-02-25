@@ -356,34 +356,66 @@ function sdela_get_w2dc_categories($parent = 0) {
     return get_categories(array('taxonomy' => W2DC_CATEGORIES_TAX, 'pad_counts' => true, 'hide_empty' => false, 'parent' => $parent));
 }
 
-function sdela_select_datetime($field_start, $field_finish = null) {
+function sdela_select_datetime($field_start, $field_end) {
 	wp_enqueue_script( 'airdatepicker', get_template_directory_uri() . '/lib/airdatepicker/js/datepicker.js', array('jquery'), null, true);
 	wp_enqueue_style( 'airdatepicker', get_template_directory_uri() . '/lib/airdatepicker/css/datepicker.css');
 	wp_enqueue_script( 'clockpicker', get_template_directory_uri() . '/lib/clockpicker/bootstrap-clockpicker.js', array('jquery'), null, true);
 	wp_enqueue_style( 'clockpicker', get_template_directory_uri() . '/lib/clockpicker/bootstrap-clockpicker.css');
+	if (isset($field_start->value['date']) )
+	{
+		$start_date     = esc_attr($field_start->value['date']);
+		$start_date_str = date('d.m.Y', $start_date);
+		$start_hour = $field_start->value['hour'];
+		$start_min = $field_start->value['minute'];
+	} else {
+		$now = time()+2*3600; //GMT+2
+	    $start_date = '';
+	    $start_date_str = date('d.m.Y', $now);
+	    $start_hour = date('H', $now);
+	    $start_min = date('i', $now);
+    }
+	if (isset($field_end->value['date']) )
+    {
+		$end_date = esc_attr($field_end->value['date']);
+    	$end_date_str = date('d.m.Y', $end_date);
+	    $end_hour = $field_end->value['hour'];
+	    $end_min = $field_end->value['minute'];
+    } else {
+	    $hour_from_now = time()+3*3600; //GMT+2 +1 hour
+		$end_date = '';
+		$end_date_str = date('d.m.Y', $hour_from_now);
+		$end_hour = date('H', $hour_from_now);
+		$end_min = date('i', $hour_from_now);
+	}
     $html = <<<DATETIME
 	<div class="col-md-6 col-xs-12">
 	    <div class="srs-filter-date srs-filter-date-from">
 	        <label>$field_start->name с </label>
-			<input type="text" class="form-control">
+			<input type="text" class="form-control" value="$start_date_str"/>
 			<i class="srs-filter-date-btn"></i>
+			<input type="hidden" name="w2dc-field-input-$field_start->id" value="$start_date">
 		</div>
 	    <div class="srs-filter-date srs-filter-date-to">
     		<label> по </label>
-		    <input type="text" class="form-control">
+		    <input type="text" class="form-control" value="$end_date_str">
 		    <i class="srs-filter-date-btn"></i>
+			<input type="hidden" name="w2dc-field-input-$field_end->id" value="$end_date">
 		</div>
 	</div>	
 	<div class="col-md-6 col-xs-12">
 	    <div class="srs-filter-time srs-ft-from">
 		    <label>Время от </label>
-			<input type="text" class="form-control">
+			<input type="text" class="form-control" value="$start_hour:$start_min">
 			<i class="srs-filter-time-btn"></i>
+			<input type="hidden" name="w2dc-field-input-hour_$field_start->id" value="$start_hour">
+			<input type="hidden" name="w2dc-field-input-minute_$field_start->id" value="$start_min">
 		</div>
 	    <div class="srs-filter-time srs-ft-to">
     	    <label> до </label>
-		    <input type="text" class="form-control">
+		    <input type="text" class="form-control" value="$end_hour:$end_min">
 	        <i class="srs-filter-time-btn"></i>
+			<input type="hidden" name="w2dc-field-input-hour_$field_end->id" value="$end_hour">
+			<input type="hidden" name="w2dc-field-input-minute_$field_end->id" value="$end_min">
 		</div>
 	</div>
 DATETIME;

@@ -36,17 +36,15 @@
 		<div class="w2dc-submit-section-title row ">
 				<?php echo sdela_select_job_type($w2dc_instance->content_fields->getContentFieldBySlug('job-type')); ?>
             <div class="col-md-7 col-xs-12">
-				<input type="text" name="post_title" class="form-control" placeholder="<?php _e('Название', 'W2DC'); ?>" value="<?php if ($w2dc_instance->current_listing->post->post_title != __('Auto Draft', 'W2DC')) echo esc_attr($w2dc_instance->current_listing->post->post_title); ?>" />
+				<input type="text" name="post_title" class="form-control" placeholder="<?php _e('Название', 'W2DC'); ?>" value="<?php if ($w2dc_instance->current_listing->post->post_title != __('Auto Draft', 'W2DC')) echo esc_attr($w2dc_instance->current_listing->post->post_title); ?>" maxlength="90"/>
 			</div>
 		</div>
 
-		<?php if (post_type_supports(W2DC_POST_TYPE, 'editor')): ?>
 		<div class="w2dc-submit-section-description row">
 			<div class="col-xs-12">
-                <textarea name="post_excerpt" class="w2dc-editor-class form-control" placeholder="<?php echo $w2dc_instance->content_fields->getContentFieldBySlug('content')->description ? $w2dc_instance->content_fields->getContentFieldBySlug('content')->description : $w2dc_instance->content_fields->getContentFieldBySlug('content')->name; ?>" rows="7"><?php echo esc_textarea($w2dc_instance->current_listing->post->post_content)?></textarea>
+                <textarea name="post_content" class="w2dc-editor-class form-control" placeholder="<?php echo $w2dc_instance->content_fields->getContentFieldBySlug('content')->description ? $w2dc_instance->content_fields->getContentFieldBySlug('content')->description : $w2dc_instance->content_fields->getContentFieldBySlug('content')->name; ?>" rows="7"><?php echo esc_textarea($w2dc_instance->current_listing->post->post_content)?></textarea>
 			</div>
 		</div>
-		<?php endif; ?>
 
 		<?php if (post_type_supports(W2DC_POST_TYPE, 'excerpt')): ?>
 		<div class="w2dc-submit-section-excerpt row">
