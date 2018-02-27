@@ -47,6 +47,7 @@ jQuery(document).ready(function($){
 	'use strict';
 	// настройки по умолчанию. Их можно добавить в имеющийся js файл, 
 	// если datepicker будет использоваться повсеместно на проекте и предполагается запускать его с разными настройками
+/*
 	$.datepicker.setDefaults({
 		closeText: 'Закрыть',
 		prevText: '<Пред',
@@ -67,6 +68,7 @@ jQuery(document).ready(function($){
 	} );
 		// Инициализация
 	$('.datepicker').datepicker({ dateFormat: 'dd/mm/yy' });
+*/
 	// можно подключить datepicker с доп. настройками так:
 	/*
 	$('input[name*="date"]').datepicker({ 

@@ -76,7 +76,7 @@
             </div>
 		<?php endif; ?>
 
-        <?php if (!$w2dc_instance->current_listing->level->eternal_active_period && (get_option('w2dc_change_expiration_date') || current_user_can('manage_options'))): ?>
+        <?php if (false): //!$w2dc_instance->current_listing->level->eternal_active_period && (get_option('w2dc_change_expiration_date') || current_user_can('manage_options'))): ?>
 		<div class="w2dc-submit-section-expiration-date row">
 			<h3 class="w2dc-submit-section-label"><?php _e('Listing expiration date', 'W2DC'); ?></h3>
 			<div class="col-xs-12">

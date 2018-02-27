@@ -702,6 +702,19 @@ p.distance {
     background-color: #d06119;
     border-color: #fff; }
 
+.w2dc-locations-metabox {
+  margin-top: 1em; }
+
+.w2dc-content .w2dc-get-location {
+  position: absolute;
+  line-height: 40px; }
+
+.w2dc-location-in-metabox {
+  border-bottom: none;
+  padding: 0; }
+  .w2dc-location-in-metabox .form-control {
+    margin-bottom: 0; }
+
 .select2-container {
   width: 100% !important;
   margin-bottom: 1em; }
@@ -759,7 +772,8 @@ p.distance {
       margin-top: 0; } }
 .w2dc-submit-section-date p {
   margin-bottom: 0;
-  margin-right: 0.8em; }
+  margin-right: 0.8em;
+  white-space: nowrap; }
 
 .srs-filter-date, .srs-filter-time {
   position: relative;
@@ -767,7 +781,7 @@ p.distance {
   .srs-filter-date .form-control, .srs-filter-time .form-control {
     padding-left: 8px;
     font-size: 18px;
-    width: 140px; }
+    max-width: 140px; }
 
 .srs-filter-date-btn {
   font-style: normal;
