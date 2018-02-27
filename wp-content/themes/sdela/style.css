@@ -780,8 +780,7 @@ p.distance {
   padding-right: 1em; }
   .srs-filter-date .form-control, .srs-filter-time .form-control {
     padding-left: 8px;
-    font-size: 18px;
-    max-width: 140px; }
+    width: 120px; }
 
 .srs-filter-date-btn {
   font-style: normal;
@@ -808,8 +807,13 @@ p.distance {
   color: #669933 !important; }
 
 @media screen and (min-width: 576px) {
+  .srs-filter-date .form-control {
+    width: 140px;
+    font-size: 18px; }
+
   .srs-filter-time .form-control {
-    width: 100px; } }
+    width: 100px;
+    font-size: 18px; } }
 .popover > .arrow {
   display: none !important; }
 
@@ -838,9 +842,14 @@ p.distance {
   margin: 0 0 -1em; }
 
 .w2dc-upload-option .form-control {
-  margin-bottom: 0; }
+  margin-bottom: 0;
+  padding-right: 1em; }
   .w2dc-upload-option .form-control::placeholder {
     color: #999; }
+.w2dc-upload-option input.unstyleable {
+  display: none; }
+.w2dc-upload-option button.btn {
+  margin-left: 1em; }
 
 .w2dc-content .submit {
   text-align: center;

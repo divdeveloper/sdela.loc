@@ -223,8 +223,7 @@
   padding-right: 1em
   .form-control
     padding-left: 8px
-    font-size: 18px
-    max-width: 140px
+    width: 120px
 .srs-filter-date-btn
   font-style: normal
   display: block
@@ -246,8 +245,12 @@
 .datepicker--day-name
   color: $green-link !important
 @media screen and (min-width: $mobile_breakpoint)
+  .srs-filter-date .form-control
+    width: 140px
+    font-size: 18px
   .srs-filter-time .form-control
     width: 100px
+    font-size: 18px
 .popover
   > .arrow
     display: none !important
@@ -272,10 +275,17 @@
   margin-bottom: $input-height
 #w2dc-upload-functions
   margin: 0 0 -1em
-.w2dc-upload-option .form-control
-  margin-bottom: 0
-  &::placeholder
-    color: #999
+.w2dc-upload-option
+  .form-control
+    margin-bottom: 0
+    padding-right: 1em
+    &::placeholder
+      color: #999
+  input.unstyleable
+    display: none
+  button.btn
+    margin-left: 1em
+
 .w2dc-content .submit
   text-align: center
   margin-bottom: 3em
