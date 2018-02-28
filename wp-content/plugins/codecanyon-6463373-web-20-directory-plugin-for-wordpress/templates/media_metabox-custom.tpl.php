@@ -239,6 +239,7 @@ $img_height = (get_option('thumbnail_size_h')) ? get_option('thumbnail_size_h') 
 					} else
 						alert("<?php esc_attr_e('Wrong URL or this video is unavailable', 'W2DC'); ?>");
 				}
+				return false;
 			};
 
 			window.showVimeoThumb = function(data){
