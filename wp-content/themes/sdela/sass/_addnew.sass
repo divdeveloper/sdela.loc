@@ -6,11 +6,17 @@
     padding: 0 40px 0 15px
     border-radius: $input-border-radius
     border: 1px solid $blue-border
-    background: #fff
+    background: transparent
     height: $input-height
     margin-bottom: $vertical-margin
     &::placeholder
       color: #222
+  input[type="number"]
+    -moz-appearance: textfield
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button
+      -webkit-appearance: none
+      margin: 0
   textarea.form-control
     padding-top: 0.5em
     padding-bottom: 0.5em
@@ -41,6 +47,7 @@
     line-height: $input-height
     top: 0
     left: 7em
+    z-index: -1
     //transition: all .2s ease
   & ~ .char-limit.active, &:focus ~ .char-limit
     left: auto
@@ -157,6 +164,10 @@
   .form-control
     margin-bottom: 0
 
+.w2dc-field-input-select
+  clip: rect(0 0 0 0) !important
+  clip-path: inset(50%) !important
+  width: 1px !important
 .select2-container
   width: 100% !important
   margin-bottom: $vertical-margin
