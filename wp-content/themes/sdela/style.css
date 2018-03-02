@@ -843,13 +843,16 @@ p.distance {
 
 .w2dc-upload-option .form-control {
   margin-bottom: 0;
-  padding-right: 1em; }
+  padding-right: 1em;
+  text-overflow: ellipsis; }
   .w2dc-upload-option .form-control::placeholder {
     color: #999; }
 .w2dc-upload-option input.unstyleable {
   display: none; }
 .w2dc-upload-option button.btn {
   margin-left: 1em; }
+.w2dc-upload-option .input-group {
+  max-width: 91%; }
 
 .w2dc-content .submit {
   text-align: center;
