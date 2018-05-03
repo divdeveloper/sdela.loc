@@ -1,0 +1,6 @@
+# Created by .ignore support plugin (hsz.mobi)
+.idea
+wp-config.php
+/DB_backup.sql
+/sdelacom_c151621_sdela_sql.sql
+/wp-content/plugins/wp-jobs/wp-jobs.php
