@@ -24,6 +24,8 @@
     {
         wp_register_style('bootstrap.css', get_template_directory_uri() . '/css/bootstrap.css', array(), '1', 'all' );
         wp_enqueue_style( 'bootstrap.css');
+        //zk: дополнительные стили
+        wp_enqueue_style( 'select2', 'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css' );
         wp_enqueue_style( 'stylesheet', get_stylesheet_uri(), array(), '1', 'all' );
         wp_enqueue_style('font-awesome', get_template_directory_uri() . '/css/font-awesome.min.css');
         wp_enqueue_style('files', get_template_directory_uri() . '/css/fileinput.min.css');
@@ -42,12 +44,15 @@ add_editor_style('css/editor-style.css');
         wp_enqueue_script('theme-js', get_template_directory_uri() . '/js/bootstrap.js',array( 'jquery' ),$version,true );
         wp_enqueue_script('files-js', get_template_directory_uri() . '/js/fileinput.min.js',array( 'jquery' ),$version,true );
         wp_enqueue_script('ru-js', get_template_directory_uri() . '/js/ru.js',array( 'files-js' ),$version,true );
-        
+
+	    //zk: дополнительные скрипты
+        wp_enqueue_script( 'select2', 'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js', false, null, true );
+        wp_enqueue_script( 'sdela', get_template_directory_uri() . '/js/sdela.js', array('select2', 'jquery'), $version, true);
         wp_enqueue_script( 'myuploadscript', get_template_directory_uri() . '/js/upload.js', array('jquery'), null, false );
 	 	// подключаем все необходимые скрипты: jQuery, jquery-ui, datepicker
-		wp_enqueue_script('jquery-ui-datepicker');
+		//wp_enqueue_script('jquery-ui-datepicker');
 		// подключаем нужные css стили
-		wp_enqueue_style('jqueryui', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css', false, null );
+		//wp_enqueue_style('jqueryui', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css', false, null );
     }
     add_action('wp_enqueue_scripts', 'devdmbootstrap3_theme_js');
 
@@ -220,14 +225,14 @@ function filter_geo_mashup_load_location_editor( $load_flag ) {
 ////////////////////////////////////////////////////////////////////
 // Register check-date.jd
 ////////////////////////////////////////////////////////////////////
-function check_date_js()
-{
-    if ( is_page('119') ) { 
-        global $version;
-        wp_enqueue_script('check-date-js', get_template_directory_uri() . '/js/check-date.js',array( 'jquery' ),$version,true );
-    }
-}
-add_action('wp_enqueue_scripts', 'check_date_js');
+//function check_date_js()
+//{
+//    if ( is_page('119') ) {
+//        global $version;
+//        wp_enqueue_script('check-date-js', get_template_directory_uri() . '/js/check-date.js',array( 'jquery' ),$version,true );
+//    }
+//}
+//add_action('wp_enqueue_scripts', 'check_date_js');
 
 
 function bal_filter_users( $query ) {
@@ -295,4 +300,130 @@ function bal_pre_get_posts( $query ) {
 }
 add_action( 'pre_get_posts', 'bal_pre_get_posts' );
 
-?>
+function sdela_select_job_type($job_type_field) {
+    $html = '';
+    if (count($job_type_field->selection_items)) {
+        $html .= '<div class="srs-filter-checks col-md-5 col-xs-12 flex">';
+        foreach ($job_type_field->selection_items as $key=>$item) {
+            //$html .= '<div class="col-md-6 col-xs-12 srs-filter-check-'.($key==1?'order':'service').'">';
+            $html .= '<label class="control control--radio srs-filter-check-'.($key==1?'order':'service').'">'.$item;
+            $html .= '<input type="radio" name="w2dc-field-input-'.$job_type_field->id.'" value="'.esc_attr($key).'" '.checked($job_type_field->value, $key, true).' />';
+            $html .= '<div class="control__indicator"></div>';
+            $html .= '</label>';
+            //$html .= '</div>';
+        }
+        $html .= '</div>';
+    }
+    return $html;
+}
+function sdela_select_categories($category_field, $subcategory_field, $post_id) {
+    $html = '';
+	if ($terms = sdela_get_w2dc_categories()) {
+		$placeholder = $category_field->description ? $category_field->description : $category_field->name;
+
+		$checked_categories_ids = array();
+		$checked_categories = wp_get_object_terms($post_id, W2DC_CATEGORIES_TAX);
+		foreach ($checked_categories AS $term)
+			$checked_categories_ids[] = $term->term_id;
+
+		$html .= '<div class="col-md-5 col-xs-12">';
+		$html .= '<select id="w2dc-category" class="w2dc-field-input-select" data-placeholder="'.$placeholder.'" name="tax_input[' . W2DC_CATEGORIES_TAX . '][]">';
+		$html .= '<option value=""></option>';
+		$subcat_options = array('<option value=""></option>');
+		foreach ($terms AS $term) {
+			if (in_array($term->term_id, $checked_categories_ids))
+				$selected = 'selected';
+			else
+				$selected = '';
+			$subcategories = array();
+            foreach (sdela_get_w2dc_categories($term->term_id) as $subterm) {
+                $subcategories[] = $subterm->term_id;
+                $subcat_options[] = '<option value="' . $subterm->term_id . '">' . $subterm->name . '</option>';
+            }
+			$html .= '<option ' . $selected . ' value="' . $term->term_id . '" data-children="'.json_encode($subcategories).'">' . $term->name . '</option>';
+		}
+		$html .= '</select>';
+		$html .= '</div><div class="col-md-5 col-xs-12">';
+		$placeholder = $subcategory_field->description ? $subcategory_field->description : $subcategory_field->name;
+		$html .= '<select id="w2dc-field-input-subcategory" data-placeholder="'.$placeholder.'" name="tax_input[' . W2DC_CATEGORIES_TAX . '][]">';
+		$html .= implode($subcat_options);
+		$html .= '</select>';
+		$html .= '</div>';
+	}
+    return $html;
+}
+function sdela_get_w2dc_categories($parent = 0) {
+    return get_categories(array('taxonomy' => W2DC_CATEGORIES_TAX, 'pad_counts' => true, 'hide_empty' => false, 'parent' => $parent));
+}
+
+function sdela_select_datetime($field_start, $field_end) {
+	wp_enqueue_script( 'airdatepicker', get_template_directory_uri() . '/lib/airdatepicker/js/datepicker.js', array('jquery'), null, true);
+	wp_enqueue_style( 'airdatepicker', get_template_directory_uri() . '/lib/airdatepicker/css/datepicker.css');
+	wp_enqueue_script( 'clockpicker', get_template_directory_uri() . '/lib/clockpicker/bootstrap-clockpicker.js', array('jquery'), null, true);
+	wp_enqueue_style( 'clockpicker', get_template_directory_uri() . '/lib/clockpicker/bootstrap-clockpicker.css');
+	if (isset($field_start->value['date']) )
+	{
+		$start_date     = esc_attr($field_start->value['date']);
+		$start_date_str = date('d.m.Y', $start_date);
+		$start_hour = $field_start->value['hour'];
+		$start_min = $field_start->value['minute'];
+	} else {
+		$now = time()+2*3600; //GMT+2
+	    $start_date = '';
+	    $start_date_str = date('d.m.Y', $now);
+	    $start_hour = date('H', $now);
+	    $start_min = date('i', $now);
+    }
+	if (isset($field_end->value['date']) )
+    {
+		$end_date = esc_attr($field_end->value['date']);
+    	$end_date_str = date('d.m.Y', $end_date);
+	    $end_hour = $field_end->value['hour'];
+	    $end_min = $field_end->value['minute'];
+    } else {
+	    $hour_from_now = time()+3*3600; //GMT+2 +1 hour
+		$end_date = '';
+		$end_date_str = date('d.m.Y', $hour_from_now);
+		$end_hour = date('H', $hour_from_now);
+		$end_min = date('i', $hour_from_now);
+	}
+    $html = <<<DATETIME
+	<div class="col-md-6 col-xs-12">
+	    <p>$field_start->name</p>
+	    <div class="flex">
+	    <div class="srs-filter-date srs-filter-date-from flex">
+	        <label> с </label>
+			<input type="text" class="form-control" value="$start_date_str"/>
+			<i class="srs-filter-date-btn"></i>
+			<input type="hidden" name="w2dc-field-input-$field_start->id" value="$start_date">
+		</div>
+	    <div class="srs-filter-date srs-filter-date-to flex">
+    		<label> по </label>
+		    <input type="text" class="form-control" value="$end_date_str">
+		    <i class="srs-filter-date-btn"></i>
+			<input type="hidden" name="w2dc-field-input-$field_end->id" value="$end_date">
+		</div>
+		</div>
+	</div>	
+	<div class="col-md-6 col-xs-12">
+	    <p>Время</p>
+	    <div class="flex">
+	    <div class="srs-filter-time srs-ft-from flex">
+		    <label> от </label>
+			<input type="text" class="form-control" value="$start_hour:$start_min">
+			<i class="srs-filter-time-btn"></i>
+			<input type="hidden" name="w2dc-field-input-hour_$field_start->id" value="$start_hour">
+			<input type="hidden" name="w2dc-field-input-minute_$field_start->id" value="$start_min">
+		</div>
+	    <div class="srs-filter-time srs-ft-to flex">
+    	    <label> до </label>
+		    <input type="text" class="form-control" value="$end_hour:$end_min">
+	        <i class="srs-filter-time-btn"></i>
+			<input type="hidden" name="w2dc-field-input-hour_$field_end->id" value="$end_hour">
+			<input type="hidden" name="w2dc-field-input-minute_$field_end->id" value="$end_min">
+		</div>
+		</div>
+	</div>
+DATETIME;
+    return $html;
+}
