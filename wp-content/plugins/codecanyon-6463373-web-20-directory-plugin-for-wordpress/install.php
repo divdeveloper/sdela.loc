@@ -488,7 +488,10 @@ function w2dc_upgrade_to_1_1_2() {
 function w2dc_upgrade_to_1_1_4() {
 	add_option('w2dc_favourites_list', 1);
 	add_option('w2dc_print_button', 1);
+	add_option('w2dc_24h_button', 1);
+	add_option('w2dc_interest_button', 1);
 	add_option('w2dc_pdf_button', 1);
+	
 }
 
 function w2dc_upgrade_to_1_1_5() {

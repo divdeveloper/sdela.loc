@@ -5,9 +5,16 @@
 			<?php while ($frontend_controller->query->have_posts()): ?>
 				<?php $frontend_controller->query->the_post(); ?>
 				<?php $listing = $frontend_controller->listings[get_the_ID()]; ?>
-				
+				<?php if($listing->status == 'expired'):
+					do_action('w2dc_listing_process_activate', $listing, true);
+					if($_GET['listing_id'] && $_GET['listing_id'] != '' && $_GET['renew_action'] == 'renew'):
+						$listing->processActivate(true);
+					endif;
+				endif;
+				?>
+			
 				<?php w2dc_renderTemplate('frontend/frontpanel_buttons.tpl.php', array('listing' => $listing)); ?>
-
+				<?php //var_dump($listing); ?>
 				<div id="<?php echo $listing->post->post_name; ?>" itemscope itemtype="http://schema.org/LocalBusiness">
 					<?php if ($listing->title()): ?>
 					<header class="w2dc-listing-header">
@@ -24,13 +31,7 @@
 							<div class="w2dc-listing-date" datetime="<?php echo date("Y-m-d", mysql2date('U', $listing->post->post_date)); ?>T<?php echo date("H:i", mysql2date('U', $listing->post->post_date)); ?>"><?php echo get_the_date(); ?> <?php echo get_the_time(); ?></div>
 						</div>
 						<?php endif; ?>
-						<?php if (!get_option('w2dc_hide_author_link')): ?>
-						<div class="w2dc-meta-data">
-							<div class="w2dc-author-link">
-								<?php _e('By', 'W2DC'); ?> <?php echo get_the_author_link(); ?>
-							</div>
-						</div>
-						<?php endif; ?>
+						
 						<?php if (get_option('w2dc_share_buttons') && get_option('w2dc_share_buttons_place') == 'title'): ?>
 						<?php w2dc_renderTemplate('frontend/sharing_buttons_ajax_call.tpl.php', array('post_id' => $listing->post->ID)); ?>
 						<?php endif; ?>
@@ -43,6 +44,12 @@
 					<?php endif; ?>
 
 					<article id="post-<?php the_ID(); ?>" class="w2dc-listing">
+						<div class="row">
+							<div class="col-xs-12 attr-data">
+							
+							</div>
+						</div>
+
 						<?php if ($listing->logo_image && (!get_option('w2dc_exclude_logo_from_listing') || count($listing->images) > 1)): ?>
 						<div class="w2dc-listing-logo-wrap w2dc-single-listing-logo-wrap" id="images">
 							<?php do_action('w2dc_listing_pre_logo_wrap_html', $listing); ?>
@@ -96,18 +103,23 @@
 							<?php if (get_option('w2dc_share_buttons') && get_option('w2dc_share_buttons_place') == 'before_content'): ?>
 							<?php w2dc_renderTemplate('frontend/sharing_buttons_ajax_call.tpl.php', array('post_id' => $listing->post->ID)); ?>
 							<?php endif; ?>
-						
-							<?php do_action('w2dc_listing_pre_content_html', $listing); ?>
-					
-							<?php $listing->renderContentFields(true); ?>
 
+							<?php do_action('w2dc_listing_pre_content_html', $listing); ?>
+							<?php $listing->renderContentFields(true); ?>
 							<?php do_action('w2dc_listing_post_content_html', $listing); ?>
-							
+
 							<?php if (get_option('w2dc_share_buttons') && get_option('w2dc_share_buttons_place') == 'after_content'): ?>
 							<?php w2dc_renderTemplate('frontend/sharing_buttons_ajax_call.tpl.php', array('post_id' => $listing->post->ID)); ?>
 							<?php endif; ?>
 						</div>
-
+						<?php if (!get_option('w2dc_hide_author_link')): ?>
+						<div class="w2dc-meta-data">
+							<div class="w2dc-author-link">
+								<?php //_e('By', 'W2DC'); ?> <?php //echo get_the_author_link(); ?>
+								<?php w2dc_renderTemplate('frontend/autor_info.tpl.php', array('autor_id' => get_the_author_ID())); ?>
+							</div>
+						</div>
+						<?php endif; ?>
 						<script>
 							(function($) {
 								"use strict";

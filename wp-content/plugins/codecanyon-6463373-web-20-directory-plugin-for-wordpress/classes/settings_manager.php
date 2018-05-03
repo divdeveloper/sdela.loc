@@ -275,9 +275,21 @@ class w2dc_settings_manager {
 										),
 										array(
 											'type' => 'toggle',
+											'name' => 'w2dc_24h_button',
+											'label' => __('Show 24h button', 'W2DC'),
+											'default' => get_option('w2dc_24h_button'),
+										),
+										array(
+											'type' => 'toggle',
 											'name' => 'w2dc_pdf_button',
 											'label' => __('Show listing in PDF button', 'W2DC'),
 											'default' => get_option('w2dc_pdf_button'),
+										),
+										array(
+											'type' => 'toggle',
+											'name' => 'w2dc_interest_button',
+											'label' => __('Show interest users button and list', 'W2DC'),
+											'default' => get_option('w2dc_interest_button'),
 										),
 										array(
 											'type' => 'toggle',

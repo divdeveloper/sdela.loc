@@ -86,7 +86,7 @@ function w2dc_calcExpirationDate($date, $level) {
 			break;
 	}
 	
-	return $date;
+	  return $date;
 }
 
 /**
@@ -1405,6 +1405,53 @@ function w2dc_show_edit_button($listing_id) {
 		)
 	)
 		return true;
+}
+
+function w2dc_show_24h_button($listing_id, $status) {
+	global $w2dc_instance;
+	if (
+		w2dc_current_user_can_edit_listing($listing_id) && $status == 'expired'
+		&&
+		(
+			(get_option('w2dc_fsubmit_addon') && isset($w2dc_instance->dashboard_page_url) && $w2dc_instance->dashboard_page_url)
+			||
+			((!get_option('w2dc_fsubmit_addon') || !isset($w2dc_instance->dashboard_page_url) || !$w2dc_instance->dashboard_page_url) && get_option('w2dc_24h_button') && current_user_can('edit_posts'))
+		)
+	)
+		return true;
+}
+
+function w2dc_interest_check($listing_id) {
+	$post_meta = unserialize(get_post_meta($listing_id, 'interest_users')[0]);
+	$isset_user = false;
+	if(is_array($post_meta) && !empty($post_meta)){
+		foreach($post_meta as $meta) {
+			if($meta['user_id'] == get_current_user_id()) {
+				$isset_user = true;
+			}
+		}
+	}
+	return $isset_user;
+}
+function userInArray($var) {
+	if($var['user_id'] != get_current_user_id()){
+		return $var;
+	}
+}
+
+
+function w2dc_interest_filterUser($listing_id) {
+	$post_meta = unserialize(get_post_meta($listing_id, 'interest_users')[0]);
+	$users = [];
+	if(is_array($post_meta) && !empty($post_meta)){
+		$users = array_filter($post_meta, "userInArray");
+	}
+	return $users;
+}
+function w2dc_getUserData($user) {
+	$user['user_info'] = get_userdata($user['user_id'])->data;
+	$user['user_avatar'] = get_avatar_url(get_current_user_id(), 96, '', false);
+	return $user;
 }
 
 function w2dc_hex2rgba($color, $opacity = false) {

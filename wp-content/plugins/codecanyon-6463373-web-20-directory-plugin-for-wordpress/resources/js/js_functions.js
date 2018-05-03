@@ -706,6 +706,85 @@ var ZOOM_FOR_SINGLE_MARKER = 17;
 			});
 		}
 
+		if ($(".set_24h").length) {
+			$(document).on('click', '.set_24h', function(e) {
+				e.preventDefault();
+
+				var $this = $(this),
+					_action = $this.data('action'),
+					_listing_id = $this.data('listingid'),
+					_renew_text = $this.data('renew-text'),
+					_public_text = $this.data('public-text');
+					console.log('_action.toString() ', _action.toString());
+				if (_action && _action != 'no-action') {
+					$this.css('opacity', '0.5');
+					$this.attr('disabled', 'disabled');
+
+					var data = {
+						action: _action,
+						listing_id: _listing_id,
+					};
+					
+					w2dc_ajax_loader_show('Activation...');
+
+					$.ajax({
+						url: w2dc_js_objects.ajaxurl,
+						type: "POST",
+						dataType: "json",
+						data: data,
+						global: false,
+						success: function(response){
+							if (response.status) {
+								$this.data('action', 'no-action');
+								$this.text(_public_text);
+							}
+							$this.css('opacity', '1');
+							$this.removeAttr('disabled');
+							w2dc_ajax_loader_hide();
+						}
+					});
+				}
+			});
+		}
+
+		if ($(".interest_button").length) {
+			$(document).on('click', '.interest_button', function(e) {
+				e.preventDefault();
+
+				var $this = $(this),
+					_listing_id = $this.data('listingid');
+				
+				$this.css('opacity', '0.5');
+				$this.attr('disabled', 'disabled');
+
+				var data = {
+					action: 'w2dc_add_interest',
+					listing_id: _listing_id,
+				};
+				
+				w2dc_ajax_loader_show('Activation...');
+
+				$.ajax({
+					url: w2dc_js_objects.ajaxurl,
+					type: "POST",
+					dataType: "json",
+					data: data,
+					global: false,
+					success: function(response){
+						if( response.status in ['updated', 'added'] ){
+							$this.addClass('interested');
+						}
+						if( response.status == 'remove' ){
+							$this.removeClass('interested');
+						}
+						$this.css('opacity', '1');
+						$this.removeAttr('disabled');
+						w2dc_ajax_loader_hide();
+					}
+				});
+			});
+		}
+
 		function check_is_week_day_closed(cb) {
 			if (cb.is(":checked"))
 				cb.parent().find(".w2dc-week-day-input").attr('disabled', 'disabled');

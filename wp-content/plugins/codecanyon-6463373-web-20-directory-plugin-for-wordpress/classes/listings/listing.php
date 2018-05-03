@@ -20,6 +20,7 @@ class w2dc_listing {
 	public $claim;
 	public $logo_animation_effect;
 	public $contact_email;
+	public $interest_users;
 
 	public function __construct($level_id = null) {
 		if ($level_id) {
@@ -69,8 +70,16 @@ class w2dc_listing {
 
 		$this->listing_created = get_post_meta($this->post->ID, '_listing_created', true);
 
-		if (get_option('w2dc_listing_contact_form') && get_option('w2dc_custom_contact_email'))
+		if (get_option('w2dc_listing_contact_form') && get_option('w2dc_custom_contact_email')){
 			$this->contact_email = get_post_meta($this->post->ID, '_contact_email', true);
+		}
+
+		if (get_option('w2dc_interest_button')) {
+			$this->interest_users = unserialize(get_post_meta($this->post->ID, 'interest_users', true));
+			if (is_array($this->interest_users)) {
+				array_map('w2dc_getUserData', $this->interest_users);
+			}
+		}
 
 		return $this->expiration_date;
 	}

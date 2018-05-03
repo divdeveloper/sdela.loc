@@ -23,6 +23,8 @@ class w2dc_ajax_controller {
 		
 		add_action('wp_ajax_w2dc_contact_form', array($this, 'contact_form'));
 		add_action('wp_ajax_nopriv_w2dc_contact_form', array($this, 'contact_form'));
+		add_action('wp_ajax_w2dc_renew_listing', array($this, 'renew_listing'));
+		add_action('wp_ajax_w2dc_add_interest', array($this, 'add_interest'));
 	}
 
 	public function controller_request() {
@@ -254,6 +256,60 @@ class w2dc_ajax_controller {
 		die();
 	}
 	
+	public function renew_listing() {
+		global $w2dc_instance;
+		
+		$listing_id = w2dc_getValue($_POST, 'listing_id');
+		$status = false;
+		if($listing_id && w2dc_current_user_can_edit_listing($listing_id)){
+			$listing = $w2dc_instance->listings_manager->loadListing($listing_id);
+			if ($listing && $listing->status == 'expired') {
+				if($listing->processActivate(true)) {
+					$status = true;
+				}
+			}
+		}
+		echo json_encode(array('status' => $status));
+		die();
+	}
+
+	public function add_interest() {
+		$listing_id = w2dc_getValue($_POST, 'listing_id');
+		$user_data = wp_get_current_user();
+		$user_avatar = get_avatar(get_current_user_id(), 96, '', false);
+		$post_meta = unserialize(get_post_meta($listing_id, 'interest_users', true));
+		$meta_data = [
+			'user_id' => get_current_user_id(),
+			'date' => date('Y-m-d h:i:s', time()),
+		];
+		
+		$out = array(
+			'status' => 'no', 
+			'user' => array(
+				'id' => get_current_user_id(),
+				'name' => $user_data->display_name,
+				'avatar' => get_avatar_url(get_current_user_id(), 96, '', false),
+			)
+		);
+		if(is_array($post_meta) && !empty($post_meta)){
+			if (!w2dc_interest_check($listing_id)){
+				array_unshift($post_meta, $meta_data);
+				update_post_meta($listing_id, 'interest_users', serialize($post_meta));
+				$out['status'] = 'updated';
+			}else {
+				$post_meta = w2dc_interest_filterUser($listing_id);
+				update_post_meta($listing_id, 'interest_users', serialize($post_meta));
+				$out['status'] = 'remove';
+			}
+		}else{
+			$post_meta[] = $meta_data;
+			add_post_meta($listing_id, 'interest_users', serialize($post_meta), true);
+			$out['status'] = 'added';
+		}
+		echo json_encode($out);
+		die();
+	}
+
 	public function get_pagenum_link($result) {
 		global $w2dc_global_base_url;
 
