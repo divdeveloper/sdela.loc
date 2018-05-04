@@ -12,9 +12,12 @@
 					endif;
 				endif;*/
 				?>
-				<?php var_dump($listing->content_fields); ?>
+
+				<?php // var_dump($listing); ?>
+				<?php var_dump($listing->getContentField(12)); ?>
+				<?php $listing->renderContentField(12); ?>
 				<?php w2dc_renderTemplate('frontend/frontpanel_buttons.tpl.php', array('listing' => $listing)); ?>
-				<?php //var_dump($listing); ?>
+
 				<div id="<?php echo $listing->post->post_name; ?>" itemscope itemtype="http://schema.org/LocalBusiness">
 					<?php if ($listing->title()): ?>
 					<header class="w2dc-listing-header">
