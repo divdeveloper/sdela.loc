@@ -1,0 +1,35 @@
+.photo-box .media-col, .video-box .media-col{
+  margin-top: 15px;
+}
+.photo-box .media-col a, .video-box .media-col a{
+  display: block;
+  width: 100%;
+  padding-top: calc( 75% );
+  position: relative;
+  border: 0;
+  cursor: pointer;
+}
+
+.photo-box .media-col img, .video-box .media-col img{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  top: 0;
+  left: 0;
+}
+.video-box .media-col a:after{
+  display: block;
+  width: 70px;
+  height: 50px;
+  content: '';
+  background: url('../images/video-icons.png') center/contain no-repeat;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.photo-box .media-col.col-xs-12.col-sm-12 a, .video-box .media-col.col-xs-12.col-sm-12 a{
+  padding-top: calc( 47% + 2px );
+}

@@ -1454,6 +1454,50 @@ function w2dc_getUserData($user) {
 	return $user;
 }
 
+function w2dc_getVideoThumbUrl ($data) {
+	if (preg_match("/<iframe.*?src=\"([^\"]+)\".*?><\/iframe>/i", $data, $matches)) {
+		$url = $matches[1];
+	}
+	if (preg_match("/<object.*?>.*?<param name=\"movie\" value=\"([^\"]+)\"( \/>|><\/param>).*?<\/object>/i", $data, $matches)) {
+			$url = $matches[1];
+	}
+	if (!is_string($url) || empty($url)) return false;
+	$url = str_replace("&amp;", "&", $url);
+	$arr = parse_url($url);
+	$arr[host] = str_replace('www.', '', $arr[host]);
+	$url = "";
+	switch ($arr[host]) {
+			case 'youtube.com':
+					if (preg_match("/\/(embed|v)\/(.+)\/?/i", $arr[path], $matches)) {
+							$url = "http://img.youtube.com/vi/".$matches[2]."/0.jpg";
+					}
+					break;
+			case 'player.vimeo.com':
+					if (preg_match("/\/video\/(.+)\/?/i", $arr[path], $matches)) {
+							$clip_id = $matches[1];
+					}
+					$xml = simplexml_load_file('http://vimeo.com/api/v2/video/'.$clip_id.'.xml');
+					if ($xml) {
+							$url = (string) $xml->video->thumbnail_large;
+					}
+					break;
+			case 'vimeo.com':
+					parse_str($arr[query], $query);
+					$clip_id = $query['clip_id'];
+					$xml = simplexml_load_file('http://vimeo.com/api/v2/video/'.$clip_id.'.xml');
+					if ($xml) {
+							$url = (string) $xml->video->thumbnail_large;
+					}
+					break;
+			default:
+					$url = "";
+					break;
+	}
+	return $url;
+}
+
+
+
 function w2dc_hex2rgba($color, $opacity = false) {
 	$default = 'rgb(0,0,0)';
 

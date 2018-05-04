@@ -785,6 +785,9 @@ var ZOOM_FOR_SINGLE_MARKER = 17;
 			});
 		}
 
+		// if ($(".interest_button").length) {
+
+		// }
 		function check_is_week_day_closed(cb) {
 			if (cb.is(":checked"))
 				cb.parent().find(".w2dc-week-day-input").attr('disabled', 'disabled');

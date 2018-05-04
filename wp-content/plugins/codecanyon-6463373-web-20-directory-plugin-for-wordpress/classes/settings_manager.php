@@ -400,11 +400,17 @@ class w2dc_settings_manager {
 									'type' => 'section',
 									'title' => __('Listings logos & images', 'W2DC'),
 									'fields' => array(
+										// array(
+										// 	'type' => 'toggle',
+										// 	'name' => 'w2dc_enable_lighbox_gallery',
+										// 	'label' => __('Enable lightbox on images gallery', 'W2DC'),
+										// 	'default' => get_option('w2dc_enable_lighbox_gallery'),
+										// ),
 										array(
 											'type' => 'toggle',
-											'name' => 'w2dc_enable_lighbox_gallery',
-											'label' => __('Enable lightbox on images gallery', 'W2DC'),
-											'default' => get_option('w2dc_enable_lighbox_gallery'),
+											'name' => 'w2dc_enable_fresco_gallery',
+											'label' => __('Enable fresco on images gallery', 'W2DC'),
+											'default' => get_option('w2dc_enable_fresco_gallery'),
 										),
 										array(
 											'type' => 'toggle',
@@ -1306,11 +1312,18 @@ class w2dc_settings_manager {
 										),
 										array(
 											'type' => 'toggle',
-											'name' => 'w2dc_images_lightbox',
-											'label' => __('Include lightbox slideshow library', 'W2DC'),
-											'description' =>  __('Some themes and 3rd party plugins include own Lighbox library - this may cause conflicts.', 'W2DC'),
-											'default' => get_option('w2dc_images_lightbox'),
+											'name' => 'w2dc_images_fresco',
+											'label' => __('Include fresco slideshow library', 'W2DC'),
+											'description' =>  __('Fresco is a beautiful responsive lightbox. It can be used to create stunning overlays that work great at any screen size, in all browsers on every device.', 'W2DC'),
+											'default' => get_option('w2dc_images_fresco'),
 										),
+										// array(
+										// 	'type' => 'toggle',
+										// 	'name' => 'w2dc_images_lightbox',
+										// 	'label' => __('Include lightbox slideshow library', 'W2DC'),
+										// 	'description' =>  __('Some themes and 3rd party plugins include own Lighbox library - this may cause conflicts.', 'W2DC'),
+										// 	'default' => get_option('w2dc_images_lightbox'),
+										// ),
 										array(
 											'type' => 'toggle',
 											'name' => 'w2dc_notinclude_jqueryui_css',

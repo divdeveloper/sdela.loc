@@ -533,6 +533,7 @@ function w2dc_upgrade_to_1_4_2() {
 
 function w2dc_upgrade_to_1_5_0() {
 	add_option('w2dc_images_lightbox', 1);
+	add_option('w2dc_images_fresco', 0);
 }
 
 function w2dc_upgrade_to_1_5_4() {

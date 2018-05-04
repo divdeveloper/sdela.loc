@@ -330,17 +330,18 @@ class w2dc_listing {
 				$content_field->isNotEmpty($this) &&
 				((!$is_single && $content_field->on_exerpt_page) || ($is_single && $content_field->on_listing_page))
 			)
-				if ($is_single)
+				if ($is_single) {
 					$content_fields_on_single[] = $content_field;
-				else 
+				}else 
 					$content_field->renderOutput($this);
 		}
 
 		if ($is_single && $content_fields_on_single) {
 			$content_fields_by_groups = $w2dc_instance->content_fields->sortContentFieldsByGroups($content_fields_on_single);
 			foreach ($content_fields_by_groups AS $item) {
-				if (is_a($item, 'w2dc_content_field') || (is_a($item, 'w2dc_content_fields_group') && !$item->on_tab))
+				if (is_a($item, 'w2dc_content_field') || (is_a($item, 'w2dc_content_fields_group') && !$item->on_tab)){
 					$item->renderOutput($this, $is_single);
+				}
 			}
 		}
 	}
