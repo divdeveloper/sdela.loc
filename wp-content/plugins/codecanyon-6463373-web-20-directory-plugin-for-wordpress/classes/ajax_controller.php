@@ -25,6 +25,7 @@ class w2dc_ajax_controller {
 		add_action('wp_ajax_nopriv_w2dc_contact_form', array($this, 'contact_form'));
 		add_action('wp_ajax_w2dc_renew_listing', array($this, 'renew_listing'));
 		add_action('wp_ajax_w2dc_add_interest', array($this, 'add_interest'));
+		add_action('wp_ajax_w2dc_get_interest_users', array($this, 'get_interest_users'));
 	}
 
 	public function controller_request() {
@@ -273,11 +274,27 @@ class w2dc_ajax_controller {
 		die();
 	}
 
+	public function get_interest_users() {
+		$listing_id = w2dc_getValue($_POST, 'listing_id');
+		$data = [];
+		$post_meta = unserialize(get_post_meta($listing_id, 'interest_users', true));
+		if(is_array($post_meta) && !empty($post_meta)){
+			foreach($post_meta as $key => $user)
+			$post_meta['avatar'] = 
+			$data[$key]['user_fio'] = get_user_by('id', $user['user_id'])->display_name; 
+			$data[$key]['user_date'] = $user['date']; 
+			$data[$key]['user_avatar'] = get_avatar($user['user_id'], 96, '', false);
+		}
+		echo json_encode($data);
+		die();
+	}
+
 	public function add_interest() {
 		$listing_id = w2dc_getValue($_POST, 'listing_id');
 		$user_data = wp_get_current_user();
 		$user_avatar = get_avatar(get_current_user_id(), 96, '', false);
 		$post_meta = unserialize(get_post_meta($listing_id, 'interest_users', true));
+
 		$meta_data = [
 			'user_id' => get_current_user_id(),
 			'date' => date('Y-m-d h:i:s', time()),
@@ -298,7 +315,11 @@ class w2dc_ajax_controller {
 				$out['status'] = 'updated';
 			}else {
 				$post_meta = w2dc_interest_filterUser($listing_id);
-				update_post_meta($listing_id, 'interest_users', serialize($post_meta));
+				if(!empty($post_meta)){
+					update_post_meta($listing_id, 'interest_users', serialize($post_meta));
+				}else{
+					delete_post_meta($listing_id, 'interest_users');
+				}
 				$out['status'] = 'remove';
 			}
 		}else{

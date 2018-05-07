@@ -691,6 +691,7 @@ var ZOOM_FOR_SINGLE_MARKER = 17;
 				if (w2dc_in_array(listing_id, favourites_array) === false) {
 					favourites_array.push(listing_id);
 					$(this).find('span.w2dc-glyphicon').removeClass(w2dc_js_objects.not_in_favourites_icon).addClass(w2dc_js_objects.in_favourites_icon);
+					$('.status-favorite').find('span.w2dc-glyphicon').removeClass('w2dc-glyphicon-star').addClass('w2dc-glyphicon-star-empty');
 					$(this).find('span.w2dc-bookmark-button').text(w2dc_js_objects.not_in_favourites_msg);
 				} else {
 					for (var count=0; count<favourites_array.length; count++) {
@@ -699,6 +700,7 @@ var ZOOM_FOR_SINGLE_MARKER = 17;
 						}
 					}
 					$(this).find('span.w2dc-glyphicon').removeClass(w2dc_js_objects.in_favourites_icon).addClass(w2dc_js_objects.not_in_favourites_icon);
+					$('.status-favorite').find('span.w2dc-glyphicon').removeClass('w2dc-glyphicon-star-empty').addClass('w2dc-glyphicon-star');
 					$(this).find('span.w2dc-bookmark-button').text(w2dc_js_objects.in_favourites_msg);
 				}
 				$.cookie("favourites", favourites_array.join('*'), {expires: 365, path: "/"});
@@ -725,7 +727,7 @@ var ZOOM_FOR_SINGLE_MARKER = 17;
 						listing_id: _listing_id,
 					};
 					
-					w2dc_ajax_loader_show('Activation...');
+					w2dc_ajax_loader_show('Активация...');
 
 					$.ajax({
 						url: w2dc_js_objects.ajaxurl,
@@ -744,6 +746,57 @@ var ZOOM_FOR_SINGLE_MARKER = 17;
 						}
 					});
 				}
+			});
+		}
+
+		if($('.w2dc-window-interest_action').length){
+			$(document).on('click', '.w2dc-window-interest_action', function(e) {
+				var $this = $(this),
+					_listing_id = $this.data('listingid');
+				$.dialog({
+					title: '',
+					columnClass: 'col-md-4 col-md-offset-5',
+					animation: 'right',
+					backgroundDismiss: false,
+					content: function () {
+						var self = this;
+						var data = {
+							action: 'w2dc_get_interest_users',
+							listing_id: _listing_id,
+						};
+						console.log(data);
+						return $.ajax({
+							url: w2dc_js_objects.ajaxurl,
+							dataType: 'json',
+							data: data,
+							method: 'POST'
+						}).done(function (response) {
+							self.setTitle('Интересуется <b class="w2dc-window-count-user">' + response.length + '</b>');
+							var elementJq;
+							if(Array.isArray(response)){
+								response.forEach(user => {
+									console.log(user['user_fio']);
+									console.log(user['user_avatar']);
+									elementJq = $('<div/>', {
+										class: 'user-card',
+										prepend: $('<div/>', {
+											class: 'col-xs-2 user-avatar',
+											html: user['user_avatar'],
+										}),
+										append: $('<div/>', {
+											class: 'col-xs-10 user-data',
+											html: '<p>' + user['user_fio'] + '</p> <p>' + user['user_date'] + '</p>',
+										})
+		
+									});
+									self.setContentAppend(elementJq);
+								});
+							}
+						}).fail(function(){
+								self.setContent('Something went wrong.');
+						});
+					}
+				});
 			});
 		}
 

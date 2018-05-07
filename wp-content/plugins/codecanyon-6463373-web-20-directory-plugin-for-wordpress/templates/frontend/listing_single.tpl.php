@@ -12,10 +12,6 @@
 					endif;
 				endif;*/
 				?>
-
-				<?php // var_dump($listing); ?>
-				<?php var_dump($listing->getContentField(12)); ?>
-				<?php $listing->renderContentField(12); ?>
 				<?php w2dc_renderTemplate('frontend/frontpanel_buttons.tpl.php', array('listing' => $listing)); ?>
 
 				<div id="<?php echo $listing->post->post_name; ?>" itemscope itemtype="http://schema.org/LocalBusiness">
@@ -48,10 +44,49 @@
 
 					<article id="post-<?php the_ID(); ?>" class="w2dc-listing">
 						<div class="row">
-							<div class="col-xs-12 attr-data">
-								<?php do_action('w2dc_listing_pre_content_html', $listing); ?>
-								<?php $listing->renderContentFields(true); ?>
-								<?php do_action('w2dc_listing_post_content_html', $listing); ?>
+							<div class="col-xs-8 attr-data">
+								<div class="row">
+									<div class="col-xs-2">
+										<?= _e('Категория', 'W2DC'); ?>
+									</div>
+									<div class="col-xs-10">
+										<?php w2dc_renderTemplate('content_fields/fields/categories_output-custom.tpl.php', array('listing' => $listing)); ?>
+									</div>
+								</div>
+		
+								<?php
+								$type_price = $listing->getContentField(14);
+								$price = $listing->getContentField(11);
+								$formatted_price = number_format($price->value, 2, $price->decimal_separator, $price->thousands_separator);
+								?>
+								<?php w2dc_renderTemplate('content_fields/fields/price_output-custom.tpl.php', array('content_field' => $price, 'formatted_price' => $formatted_price, 'type_price' => $type_price->selection_items[$type_price->value])); ?>
+	
+								<?php w2dc_renderTemplate('content_fields/fields/datetime_output-custom.tpl.php', array('start_date' => $listing->getContentField(9), 'end_date' => $listing->getContentField(10))); ?>
+						
+								<?php w2dc_renderTemplate('content_fields/fields/content_output-custom.tpl.php', array('listing' => $listing)); ?>
+	
+								<?php // do_action('w2dc_listing_pre_content_html', $listing); ?>
+								<?php // $listing->renderContentFields(true); ?>
+								<?php // do_action('w2dc_listing_post_content_html', $listing); ?>
+							</div>
+							<div class="col-xs-4">
+								<div class="row">
+									<div class="col-xs-12">
+										<div class="row">
+											<div class="col-xs-2">
+											<?php if (get_option('w2dc_favourites_list')): ?>
+												<a href="javascript:void(0);" class="status-favorite w2dc-btn w2dc-btn-primary" rel="nofollow"><span class="w2dc-glyphicon w2dc-glyphicon-<?php if (w2dc_checkQuickList($listing->post->ID)) echo 'star-empty'; else echo 'star'; ?>"></span></a>
+											<?php endif; ?>
+											</div>
+											<div class="col-xs-10">
+												<div class="interest-informer">
+													<span class="w2dc-interest-count"></span><?= w2dc_interest_count($listing->post->ID); ?> <span class="w2dc-window-interest_action" data-listingid="<?= $listing->post->ID; ?>"><?= _e('интерес', 'W2DC') ?></span>
+												</div>
+											</div>
+										</div>
+									</div>
+									<?php $listing->renderContentField(12); ?>
+								</div>
 							</div>
 						</div>
 						<div class="row media-box">

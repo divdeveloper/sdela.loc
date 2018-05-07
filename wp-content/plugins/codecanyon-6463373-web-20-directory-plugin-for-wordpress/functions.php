@@ -1420,9 +1420,17 @@ function w2dc_show_24h_button($listing_id, $status) {
 	)
 		return true;
 }
+function w2dc_interest_count($listing_id) {
+	$post_meta = unserialize(get_post_meta($listing_id, 'interest_users', true));
+	return $post_meta ? count($post_meta) : 0;
+}
+
+function  w2dc_interest_users($listing_id){
+	return [];
+}
 
 function w2dc_interest_check($listing_id) {
-	$post_meta = unserialize(get_post_meta($listing_id, 'interest_users')[0]);
+	$post_meta = unserialize(get_post_meta($listing_id, 'interest_users', true));
 	$isset_user = false;
 	if(is_array($post_meta) && !empty($post_meta)){
 		foreach($post_meta as $meta) {
@@ -1433,6 +1441,7 @@ function w2dc_interest_check($listing_id) {
 	}
 	return $isset_user;
 }
+
 function userInArray($var) {
 	if($var['user_id'] != get_current_user_id()){
 		return $var;
