@@ -26,6 +26,7 @@ class w2dc_ajax_controller {
 		add_action('wp_ajax_w2dc_renew_listing', array($this, 'renew_listing'));
 		add_action('wp_ajax_w2dc_add_interest', array($this, 'add_interest'));
 		add_action('wp_ajax_w2dc_get_interest_users', array($this, 'get_interest_users'));
+		add_action('wp_ajax_w2dc_get_action_tmp', array($this, 'get_action_tmp'));
 	}
 
 	public function controller_request() {
@@ -279,13 +280,23 @@ class w2dc_ajax_controller {
 		$data = [];
 		$post_meta = unserialize(get_post_meta($listing_id, 'interest_users', true));
 		if(is_array($post_meta) && !empty($post_meta)){
-			foreach($post_meta as $key => $user)
-			$post_meta['avatar'] = 
-			$data[$key]['user_fio'] = get_user_by('id', $user['user_id'])->display_name; 
-			$data[$key]['user_date'] = $user['date']; 
-			$data[$key]['user_avatar'] = get_avatar($user['user_id'], 96, '', false);
+			foreach($post_meta as $key => $user){
+				$data[$key]['user_fio'] = get_user_by('id', $user['user_id'])->display_name; 
+				$data[$key]['user_date'] = $user['date']; 
+				$data[$key]['user_avatar'] = get_avatar($user['user_id'], 96, '', false);
+			}
 		}
 		echo json_encode($data);
+		die();
+	}
+
+	public function get_action_tmp(){
+		global $w2dc_instance;
+		
+		$listing_id = w2dc_getValue($_GET, 'listing_id');
+		$listing = $w2dc_instance->listings_manager->loadListing($listing_id);
+
+		w2dc_renderTemplate('frontend/controls-panel.tpl.php', array('listing' => $listing));
 		die();
 	}
 

@@ -12,7 +12,7 @@
 					endif;
 				endif;*/
 				?>
-				<?php w2dc_renderTemplate('frontend/frontpanel_buttons.tpl.php', array('listing' => $listing)); ?>
+				<?php // w2dc_renderTemplate('frontend/frontpanel_buttons.tpl.php', array('listing' => $listing)); ?>
 
 				<div id="<?php echo $listing->post->post_name; ?>" itemscope itemtype="http://schema.org/LocalBusiness">
 					<?php if ($listing->title()): ?>
@@ -43,6 +43,11 @@
 					<?php endif; ?>
 
 					<article id="post-<?php the_ID(); ?>" class="w2dc-listing">
+						<div class="row">
+							<div class="col-xs-12">
+								<button class="w2dc-listing-controls" data-listingid="<?= $listing->post->ID; ?>"><span class="w2dc-glyphicon w2dc-glyphicon-plus"></span></button>
+							</div>
+						</div>
 						<div class="row">
 							<div class="col-xs-8 attr-data">
 								<div class="row">
@@ -80,15 +85,18 @@
 											</div>
 											<div class="col-xs-10">
 												<div class="interest-informer">
-													<span class="w2dc-interest-count"></span><?= w2dc_interest_count($listing->post->ID); ?> <span class="w2dc-window-interest_action" data-listingid="<?= $listing->post->ID; ?>"><?= _e('интерес', 'W2DC') ?></span>
+													<span class="w2dc-interest-count"><?= w2dc_interest_count($listing->post->ID); ?></span> <span class="w2dc-window-interest_action" data-listingid="<?= $listing->post->ID; ?>"><?= _e('интерес', 'W2DC') ?></span>
 												</div>
 											</div>
 										</div>
 									</div>
-									<?php $listing->renderContentField(12); ?>
+									<div class="col-xs-12">
+									<?php w2dc_renderTemplate('content_fields/fields/listing_type_output-custom.tpl.php', array('content_field' => $listing->getContentField(12))); ?>
+									</div>
 								</div>
 							</div>
 						</div>
+						
 						<div class="row media-box">
 						<?php $media_grid = [
 							1 => [

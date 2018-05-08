@@ -50,7 +50,7 @@ class w2dc_fsubmit_plugin {
 		add_action('w2dc_directory_frontpanel', array($this, 'add_submit_button'), 10, 2);
 		add_action('w2dc_directory_frontpanel', array($this, 'add_claim_button'), 11);
 		
-		add_action('w2dc_directory_frontpanel', array($this, 'add_logout_button'), 12);
+		//add_action('w2dc_directory_frontpanel', array($this, 'add_logout_button'), 12);
 
 		add_action('init', array($this, 'remove_admin_bar'));
 		add_action('admin_init', array($this, 'restrict_dashboard'));
