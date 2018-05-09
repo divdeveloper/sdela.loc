@@ -306,6 +306,11 @@ class w2dc_listing {
 			return $this->content_fields[$field_id];
 	}
 
+	public function getLocation($location_id) {
+		if (isset($this->locations[$location_id]))
+			return $this->locations[$location_id];
+	}
+
 	public function renderContentField($field_id) {
 		if (isset($this->content_fields[$field_id]))
 			$this->content_fields[$field_id]->renderOutput($this);

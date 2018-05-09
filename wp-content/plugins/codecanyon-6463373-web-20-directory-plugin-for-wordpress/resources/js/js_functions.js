@@ -730,7 +730,7 @@ var ZOOM_FOR_SINGLE_MARKER = 17;
 				if (w2dc_in_array(listing_id, favourites_array) === false) {
 					favourites_array.push(listing_id);
 					$(this).find('span.w2dc-glyphicon').removeClass(w2dc_js_objects.not_in_favourites_icon).addClass(w2dc_js_objects.in_favourites_icon);
-					$('.status-favorite').find('span.w2dc-glyphicon').removeClass('w2dc-glyphicon-star').addClass('w2dc-glyphicon-star-empty');
+					$('.status-favorite').removeClass('is-favorite').addClass('not-favorite');
 					$(this).find('span.w2dc-bookmark-button').text(w2dc_js_objects.not_in_favourites_msg);
 				} else {
 					for (var count = 0; count < favourites_array.length; count++) {
@@ -739,7 +739,7 @@ var ZOOM_FOR_SINGLE_MARKER = 17;
 						}
 					}
 					$(this).find('span.w2dc-glyphicon').removeClass(w2dc_js_objects.in_favourites_icon).addClass(w2dc_js_objects.not_in_favourites_icon);
-					$('.status-favorite').find('span.w2dc-glyphicon').removeClass('w2dc-glyphicon-star-empty').addClass('w2dc-glyphicon-star');
+					$('.status-favorite').removeClass('not-favorite').addClass('is-favorite');
 					$(this).find('span.w2dc-bookmark-button').text(w2dc_js_objects.in_favourites_msg);
 				}
 				$.cookie("favourites", favourites_array.join('*'), {
@@ -829,9 +829,10 @@ var ZOOM_FOR_SINGLE_MARKER = 17;
 						data: data,
 						method: 'POST'
 					}).done(function (response) {
-						self.setTitle('Интересуется <b class="w2dc-window-count-user">' + response.length + '</b>');
 						var elementJq;
-						console.log(response);
+						
+						self.setTitle('<span class="w2dc-interest-title">Интересуется &nbsp;&nbsp;&nbsp;&nbsp; <b class="w2dc-window-count-user">' + response.length + '</b>');
+						
 						$('.w2dc-interest-count').text(response.length);
 						if (Array.isArray(response)) {
 							response.forEach(user => {

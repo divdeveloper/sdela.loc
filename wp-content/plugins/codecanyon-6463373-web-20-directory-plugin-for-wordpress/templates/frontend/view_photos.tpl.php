@@ -21,8 +21,8 @@
         $i ++;
       endforeach; ?>
     <?php endif; ?>
-    <div class="col-xs-12">
-      <a onclick='showFrescoImages(<?= json_encode($gallery);?>)'><?= count($listing->images); ?> <?= _e("Photos", 'W2DC'); ?></a>
+    <div class="col-xs-12 more-media">
+      <a onclick='showFrescoImages(<?= json_encode($gallery);?>)'><?= count($listing->images); ?> <?= _e("фото", 'W2DC'); ?></a>
     </div>
   </div>
 <? endif; ?>

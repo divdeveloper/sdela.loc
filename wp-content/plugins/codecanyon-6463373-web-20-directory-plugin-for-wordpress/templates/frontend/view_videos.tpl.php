@@ -44,8 +44,8 @@
       endif;
       $i++;
     endforeach; ?>
-    <div class="col-xs-12">
-      <a onclick='showFrescoImages(<?= json_encode($gallery);?>)'><?= count($listing->videos); ?> <?= _e("Videos", 'W2DC'); ?></a>
+    <div class="col-xs-12 more-media">
+      <a onclick='showFrescoImages(<?= json_encode($gallery);?>)'><?= count($listing->videos); ?> <?= _e("видео", 'W2DC'); ?></a>
     </div>
   </div>
 <?php else: ?>
