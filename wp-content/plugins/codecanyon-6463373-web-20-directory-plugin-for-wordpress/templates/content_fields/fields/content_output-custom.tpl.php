@@ -1,5 +1,5 @@
 <?php if (!empty($listing->post->post_content)): ?>
-<div class="row w2dc-content-field">
+<div class="row w2dc-content-field w2dc-field-description">
 	<div class="field-title">
 	<?=__('Детали', 'W2DC'); ?>:
 	</div>

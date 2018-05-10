@@ -906,7 +906,7 @@ figure.w2dc-listing-logo figcaption a:focus {
 /************************ Maps and Info Window ************************/
 .w2dc-maps-canvas {
 	margin: 0 auto;
-	border-radius: 6px;
+	border-radius: 0px;
 	border: 1px solid #DDDDDD;
 }
 .w2dc-maps-canvas .gm-style img {

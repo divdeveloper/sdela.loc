@@ -793,15 +793,48 @@ var ZOOM_FOR_SINGLE_MARKER = 17;
 
 		$(document).on('click', '.w2dc-listing-controls', function () {
 			var _listing_id = $(this).data('listingid');
-			$.dialog({
+			$.confirm({
 				title: '',
-				columnClass: 'col-md-4 col-md-offset-8',
-				animation: 'right',
+				columnClass: 'col-sm-5 col-sm-offset-7 col-md-4 col-md-offset-8 col-lg-4 col-lg-offset-8',
 				draggable: false,
-				backgroundDismiss: false,
+				closeIcon: true,
+				animation: 'none',
+				backgroundDismiss: true,
 				content: 'url:' + w2dc_js_objects.ajaxurl + '?action=w2dc_get_action_tmp&listing_id=' + _listing_id,
 				onContentReady: function () {
+					this.setTitle('<p></p>');
 					var self = this;
+					(function(r, d, s) {
+						r.loadSkypeWebSdkAsync = r.loadSkypeWebSdkAsync || function(p) {
+							var js, sjs = d.getElementsByTagName(s)[0];
+							if (d.getElementById(p.id)) { return; }
+							js = d.createElement(s);
+							js.id = p.id;
+							js.src = p.scriptToLoad;
+							js.onload = p.callback
+							sjs.parentNode.insertBefore(js, sjs);
+						};
+						var p = {
+							scriptToLoad: 'https://swx.cdn.skype.com/shared/v/latest/skypewebsdk.js',
+							id: 'skype_web_sdk'
+						};
+						r.loadSkypeWebSdkAsync(p);
+					})(window, document, 'script');
+				},
+			
+				onDestroy: function() {
+					(function(d) {
+						d.getElementById('skype_bootstrap').remove();
+						d.getElementById('skype_web_sdk').remove();
+					})(document);
+				},
+				buttons: {
+					closeThere: {
+            text: w2dc_js_objects.close_btn_msg, // With spaces and symbols
+            action: function () {
+                this.close();
+            }
+        	}
 				},
 			});
 		});
@@ -810,12 +843,21 @@ var ZOOM_FOR_SINGLE_MARKER = 17;
 		$(document).on('click', '.w2dc-window-interest_action', function (e) {
 			var $this = $(this),
 				_listing_id = $this.data('listingid');
-			$.dialog({
+			$.confirm({
 				title: '',
-				columnClass: 'col-md-4 col-md-offset-5',
+				columnClass: 'col-md-4 col-md-offset-6',
 				animation: 'right',
 				draggable: false,
-				backgroundDismiss: false,
+				closeIcon: true,
+				backgroundDismiss: true,
+				buttons: {
+					closeThere: {
+            text: w2dc_js_objects.close_btn_msg, // With spaces and symbols
+            action: function () {
+                this.close();
+            }
+        	}
+				},
 				content: function () {
 					var self = this;
 					var data = {
@@ -837,15 +879,15 @@ var ZOOM_FOR_SINGLE_MARKER = 17;
 						if (Array.isArray(response)) {
 							response.forEach(user => {
 								elementJq = $('<div/>', {
-									class: 'user-card',
+									class: 'w2dc-user-card',
 									html: '',
 									prepend: $('<div/>', {
-										class: 'col-xs-3 user-avatar',
+										class: 'w2dc-user-avatar-box',
 										html: user['user_avatar'],
 									}),
 									append: $('<div/>', {
-										class: 'col-xs-9 user-data',
-										html: '<p>' + user['user_fio'] + '</p> <p>' + user['user_date'] + '</p>',
+										class: 'w2dc-user-data-box',
+										html: '<div class="w2dc-user-card-fio"><a>' + user['user_fio'] + '</a></div> <div class="w2dc-user-card-date">' + user['user_date'] + '</div>',
 									}),
 								});
 								self.setContentAppend(elementJq);
@@ -886,7 +928,7 @@ var ZOOM_FOR_SINGLE_MARKER = 17;
 					var informer = $('.w2dc-interest-count').text();
 					var jqelement;
 					if (['updated', 'added'].indexOf(response.status) >= 0) {
-						$this.addClass('interested');
+						$this.addClass('interested').children('span').text(w2dc_js_objects.not_in_interests_msg);
 						$('.w2dc-interest-count').text(parseInt(informer) + 1);
 						$('.w2dc-interest-count-window').text(parseInt(informer) + 1);
 						jqelement = $('<div/>', {
@@ -896,16 +938,15 @@ var ZOOM_FOR_SINGLE_MARKER = 17;
 							}),
 						});
 						if($('.w2dc-user-list-avatar').children().length < 4){
-							console.log('prepend ', $('.w2dc-user-list-avatar').children().length, jqelement);
+						
 							$('.w2dc-user-list-avatar').append(jqelement);
-						}else{
-							console.log('prepend ', $('.w2dc-user-list-avatar').children().length, jqelement);
+						}else {
 							$('.w2dc-user-list-avatar').children().last().remove();
 							$('.w2dc-user-list-avatar').prepend(jqelement);
 						}
 					}
 					if (response.status == 'remove') {
-						$this.removeClass('interested');
+						$this.removeClass('interested').children('span').text(w2dc_js_objects.in_interests_msg);
 						$('.w2dc-interest-count').text(parseInt(informer) - 1);
 						$('.w2dc-interest-count-window').text(parseInt(informer) - 1);
 						$('.w2dc-user-list-avatar').children('.w2dc-user-' + response.user.id).remove();

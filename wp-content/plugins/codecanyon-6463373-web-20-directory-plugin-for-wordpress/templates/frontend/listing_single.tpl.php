@@ -49,18 +49,13 @@
 					<?php endif; ?>
 
 					<article id="post-<?php the_ID(); ?>" class="w2dc-listing">
-						<div class="row w2dc_no-margin">
-							<div class="col-xs-1 col-xs-offset-11">
-								<button class="w2dc-listing-controls" data-listingid="<?= $listing->post->ID; ?>"><span class="w2dc-glyphicon w2dc-glyphicon-plus"></span></button>
-							</div>
-						</div>
 						<div class="container dmbs-container">
 							<div class="dmbs-content">
 								<div class="row">
-									<div class="col-xs-9 attr-data">
+									<div class="w2dc-attr-data-box">
 										<div class="row w2dc-content-field">
 											<div class="field-title">
-												<?= _e('Категория', 'W2DC'); ?>
+												<?= _e('Категория', 'W2DC'); ?>:
 											</div>
 											<div class="field-value">
 												<?php w2dc_renderTemplate('content_fields/fields/categories_output-custom.tpl.php', array('listing' => $listing)); ?>
@@ -78,7 +73,7 @@
 										<?php // $listing->renderContentFields(true); ?>
 										<?php // do_action('w2dc_listing_post_content_html', $listing); ?>
 									</div>
-									<div class="col-xs-3">
+									<div class="w2dc-actions-data-box">
 										<div class="row">
 											<div class="col-xs-12">
 												<div class="favorite-box">
@@ -102,6 +97,11 @@
 							</div>
 						</div>
 						<div class="divide-line"></div>
+						<div class="row w2dc_no-margin">
+							<div class="col-xs-1 col-xs-offset-11">
+								<button class="w2dc-listing-controls" data-listingid="<?= $listing->post->ID; ?>"><span class="w2dc-glyphicon w2dc-glyphicon-plus"></span></button>
+							</div>
+						</div>
 						<div class="container dmbs-container">
 							<div class="dmbs-content">
 								<div class="row">
@@ -148,7 +148,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="divide-line"></div>
+						<div class="divide-line" style="margin-top: 35px;"></div>
 						<div class="container dmbs-container">
 							<div class="dmbs-content">
 								<div class="row w2dc-content-field">
@@ -165,8 +165,8 @@
 								</div>
 								
 								<?php if ($listing->level->google_map && $listing->isMap() && $listing->locations): ?>
-									<div class="row" style="margin-top: 25px;">
-										<div class="col-xs-12">
+									<div class="row" style="margin-top: 20px;">
+										<div class="col-xs-12 w2dc_no-padding">
 											<?php $listing->renderMap($frontend_controller->hash, get_option('w2dc_show_directions'), false, get_option('w2dc_enable_radius_search_circle'), get_option('w2dc_enable_clusters'), false, false); ?>
 										</div>
 									</div>

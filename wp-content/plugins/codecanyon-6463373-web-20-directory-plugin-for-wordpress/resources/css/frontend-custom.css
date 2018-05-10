@@ -36,12 +36,14 @@
 }
 
 .listing-single h2{
-  font-size: 25px;
+  font-size: 25px !important;
   color: black;
   font-family: 'Museo Sans Cyrl 500';
+  margin-top: 25px !important;
+  padding-left: 2%;
 }
 .listing-single .field-title{
-  font-size: 16px;
+  font-size: 17.5px;
   color: black;
   font-family: 'Museo Sans Cyrl 300';
   width: 120px;
@@ -54,17 +56,19 @@
   color: black;
   width: calc( 100% - 120px );
   float: right;
-  padding: 0 15px;
+  padding: 0 6px;
 }
 .listing-single .field-value .datetime{
   font-family: 'Museo Sans Cyrl 500';
 }
+
 .listing-single .field-value .price{
   font-family: 'Museo Sans Cyrl 700';
-  font-size: 26px;
+  font-size: 28px;
+  line-height: 24px;
 }
 .listing-single .field-value p{
-  font-size: 18px;
+  font-size: 20px;
   line-height: 26px;
 }
 .listing-single .field-value .address{
@@ -73,8 +77,9 @@
 }
 .listing-single .category-item a{
   font-family: 'Museo Sans Cyrl 500';
-  font-size: 20px;
+  font-size: 21px;
   color: black !important;
+  line-height: 22px;
 }
 .listing-single .category-item a:focus,
 .listing-single .category-item a:hover{
@@ -84,7 +89,7 @@
     border-bottom: 0;
 }
 .listing-single .more-media{
-  margin-top: 20px;
+  margin-top: 15px;
 }
 .listing-single .more-media a{
   font-size: 18px;
@@ -103,7 +108,7 @@
 }
 
 .listing-single .w2dc-content-field{
-  margin-top: 25px;
+  margin-top: 24px;
 }
 
 .listing-single .divide-line{
@@ -113,6 +118,10 @@
 
 .w2dc_no-margin{
   margin: 0 !important;
+}
+
+.w2dc_no-padding{
+  padding: 0 !important;
 }
 
 .favorite-box{
@@ -134,10 +143,10 @@
 .favorite-box .status-favorite.not-favorite:before{
   display: inline-block;
   content: '';
-  width: 20px;
-  height: 20px;
-  background: url("../images/icons/star.png") 1px 2px no-repeat;
-  margin-top: 9px;
+  width: 25px;
+  height: 25px;
+  background: url("../images/icons/star.png") 0 0 no-repeat;
+  margin-top: 7px;
 }
 .favorite-box .status-favorite.is-favorite{
   background: transparent;
@@ -146,17 +155,17 @@
 .favorite-box .status-favorite.is-favorite:before{
   display: inline-block;
   content: '';
-  width: 20px;
-  height: 20px;
-  background: url("../images/icons/star.png") 1px -31px no-repeat;
-  margin-top: 9px;
+  width: 25px;
+  height: 25px;
+  background: url("../images/icons/star.png") 0 -35px no-repeat;
+  margin: 7px;
 }
 .interest-box{
   width: calc( 100% - 66px );
   float: right;
 }
 .interest-box .interest-informer{
-  width: 100%;
+  width: 90%;
   height: 40px;
   border-radius: 20px;
   border: 1px solid black;
@@ -174,7 +183,7 @@
   font-size: 16px;
   text-decoration: underline;
   color: black;
-  transform: translateY(-5px);
+  transform: translateY(-3px);
 }
 .w2dc-window-interest_action:hover{
   text-decoration: none;
@@ -182,15 +191,15 @@
 }
 
 .listing-single .type-box .type-title{
-  height: 40px;
+  height: 44px;
   background: #7f33c1;
   font-family: 'Museo Sans Cyrl 500';
-  font-size: 22px;
+  font-size: 26px;
   color: white;
-  line-height: 40px;
+  line-height: 44px;
   padding-left: 36px;
   text-transform: uppercase;
-  margin-top: 15px;
+  margin-top: 11px;
 }
 .w2dc-interest-title{
   font-family: 'Museo Sans Cyrl 300';
@@ -201,4 +210,96 @@
   font-family: 'Museo Sans Cyrl 700';
   font-size: 22px;
   color: black;
+}
+
+.w2dc-listing-controls{
+  position: absolute;
+}
+
+.w2dc-attr-data-box{
+  width: calc( 100% - 240px );
+  float: left;
+  padding: 0 15px;
+}
+
+.w2dc-actions-data-box{
+  width: 239px;
+  float: right;
+  padding-right: 4px;
+  margin-top: 42px;
+}
+
+.listing-single .w2dc-field-datetime{
+  margin-top: 36px;
+}
+.listing-single .w2dc-field-datetime .field-value{
+  font-size: 19px;
+}
+
+.listing-single .w2dc-field-description{
+  margin-top: 7px;
+}
+
+.listing-single .video-box{
+  padding: 0 24px 0 0;
+}
+
+.listing-single .photo-box{
+  padding: 0 0 0 17px;
+}
+
+.w2dc-user-card{
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -ms-flex-pack: justify!important;
+  justify-content: space-between!important;
+  margin-top: 10px;
+}
+.w2dc-user-card:after{
+  display: block;
+  content: '';
+  clear: both;
+}
+.w2dc-user-card .w2dc-user-avatar-box{
+  -ms-flex: 0 0 74px;
+  flex: 0 0 74px;
+  max-width: 74px;
+}
+.w2dc-user-card .w2dc-user-avatar-box img{
+  border-radius: 50%;
+}
+.w2dc-user-card .w2dc-user-data-box{
+  -ms-flex: 0 0 calc( 100% - 100px);
+  flex: 0 0 calc( 100% - 100px);
+  max-width: calc( 100% - 100px);
+  -ms-flex-item-align: center!important;
+  align-self: center!important;
+}
+
+.w2dc-user-card .w2dc-user-data-box .w2dc-user-card-fio a{
+  font-family: 'Museo Sans Cyrl 500';
+  font-size: 17px;
+  color: black;
+  text-decoration: underline;
+}
+.w2dc-user-card .w2dc-user-data-box .w2dc-user-card-fio a:hover{
+  text-decoration: none;
+  background: transparent !important;
+  border-bottom: 0 !important;
+  cursor: pointer;
+}
+
+.w2dc-user-card .w2dc-user-data-box .w2dc-user-card-date{
+  font-family: 'Museo Sans Cyrl 300';
+  font-size: 16px;
+  color: #999999;
+}
+
+.w2dc-user-list-avatar img{
+  border-radius: 50%;
+}
+.w2dc-user-list-avatar div[class*='w2dc-user']{
+  padding: 0 10px !important;
 }
